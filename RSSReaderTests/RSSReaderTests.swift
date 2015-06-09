@@ -1,11 +1,3 @@
-//
-//  RSSReaderTests.swift
-//  RSSReaderTests
-//
-//  Created by 荒井　和平 on 2015/06/03.
-//  Copyright (c) 2015年 荒井　和平. All rights reserved.
-//
-
 import UIKit
 import XCTest
 
