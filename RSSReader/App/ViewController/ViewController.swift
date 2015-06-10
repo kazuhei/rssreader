@@ -1,7 +1,7 @@
 import UIKit
 import Foundation
 
-class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
+class ViewController: BaseViewController, UITableViewDelegate, UITableViewDataSource {
 
     var articles: [Article] = []
     var selectedIndex: Int = 0
@@ -103,14 +103,16 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func loadData() {
-        FeedModel.sharedInstance.addObserver(self, forKeyPath: "articles", options: .New, context: nil)
-        FeedModel.sharedInstance.get()
+        addModelObserve(FeedModel.getInstance(), forKeyPath: "articles", options: NSKeyValueObservingOptions.Prior, context: nil)
+        FeedModel.getInstance().get()
     }
     
     override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
-        self.articles = FeedModel.sharedInstance.articles
-        self.tableView.reloadData()
-        FeedModel.sharedInstance.removeObserver(self, forKeyPath: "articles")
+        // データが格納された時のみ更新
+        if FeedModel.getInstance().articles.count != 0 {
+            self.articles = FeedModel.getInstance().articles
+            self.tableView.reloadData()
+        }
     }
 
 }

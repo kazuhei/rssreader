@@ -65,9 +65,9 @@
 		<dict>
 			<key>children</key>
 			<array>
-				<string>C075DDF71B26EA3900AF2611</string>
-				<string>C075DDF91B26EA4400AF2611</string>
-				<string>C075DDFB1B26EA5100AF2611</string>
+				<string>C075DE0A1B27DB0F00AF2611</string>
+				<string>C075DE0B1B27DBBB00AF2611</string>
+				<string>C075DE0D1B27DBC600AF2611</string>
 			</array>
 			<key>isa</key>
 			<string>PBXGroup</string>
@@ -164,8 +164,6 @@
 			<string>PBXFileReference</string>
 			<key>lastKnownFileType</key>
 			<string>sourcecode.swift</string>
-			<key>name</key>
-			<string>XmlParseDelegate.swift</string>
 			<key>path</key>
 			<string>XmlParseDelegate.swift</string>
 			<key>sourceTree</key>
@@ -216,6 +214,7 @@
 			<key>children</key>
 			<array>
 				<string>C075DDFD1B26EEEE00AF2611</string>
+				<string>C075DE081B27DAE400AF2611</string>
 			</array>
 			<key>isa</key>
 			<string>PBXGroup</string>
@@ -233,8 +232,6 @@
 			</array>
 			<key>isa</key>
 			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Model</string>
 			<key>path</key>
 			<string>Model</string>
 			<key>sourceTree</key>
@@ -257,6 +254,83 @@
 		<dict>
 			<key>fileRef</key>
 			<string>C075DE061B27D60F00AF2611</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>C075DE081B27DAE400AF2611</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>FeedRequest.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>C075DE091B27DAE400AF2611</key>
+		<dict>
+			<key>fileRef</key>
+			<string>C075DE081B27DAE400AF2611</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>C075DE0A1B27DB0F00AF2611</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>C075DDF71B26EA3900AF2611</string>
+				<string>C075DDF91B26EA4400AF2611</string>
+				<string>C075DDFB1B26EA5100AF2611</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Inflastructure</string>
+			<key>path</key>
+			<string>Inflastructure</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>C075DE0B1B27DBBB00AF2611</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>BaseModel.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>C075DE0C1B27DBBB00AF2611</key>
+		<dict>
+			<key>fileRef</key>
+			<string>C075DE0B1B27DBBB00AF2611</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
+		</dict>
+		<key>C075DE0D1B27DBC600AF2611</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>BaseViewController.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>C075DE0E1B27DBC600AF2611</key>
+		<dict>
+			<key>fileRef</key>
+			<string>C075DE0D1B27DBC600AF2611</string>
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
@@ -376,6 +450,7 @@
 			<key>files</key>
 			<array>
 				<string>C075DDFC1B26EA5100AF2611</string>
+				<string>C075DE091B27DAE400AF2611</string>
 				<string>C075DDFA1B26EA4400AF2611</string>
 				<string>C075DE001B26F34E00AF2611</string>
 				<string>C0997C7B1B1F291D00F32FA0</string>
@@ -383,9 +458,11 @@
 				<string>C075DDF81B26EA3900AF2611</string>
 				<string>C0997CA51B21740800F32FA0</string>
 				<string>C0997C761B1F291D00F32FA0</string>
+				<string>C075DE0C1B27DBBB00AF2611</string>
 				<string>C075DE071B27D60F00AF2611</string>
 				<string>C075DE021B26F46400AF2611</string>
 				<string>C0997C791B1F291D00F32FA0</string>
+				<string>C075DE0E1B27DBC600AF2611</string>
 				<string>C0997C991B1F2A4B00F32FA0</string>
 				<string>C075DDFE1B26EEEE00AF2611</string>
 			</array>

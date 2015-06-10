@@ -1,6 +1,6 @@
 import UIKit
 
-class WebViewController: UIViewController, UIWebViewDelegate {
+class WebViewController: BaseViewController, UIWebViewDelegate {
     
     var url: NSURL?
     

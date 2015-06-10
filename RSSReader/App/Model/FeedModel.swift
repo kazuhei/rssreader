@@ -1,15 +1,18 @@
 
 import Foundation
 
-class FeedModel: NSObject {
-    static let sharedInstance = FeedModel()
-    let xmlParseDelegate: XMLParseDelegate = XMLParseDelegate()
-
+class FeedModel: BaseModel {
+    private let xmlParseDelegate: XMLParseDelegate = XMLParseDelegate()
+    private static let singleton = FeedModel()
     
     // KVO用のプロパティ
     dynamic var articles: [Article] = []
     
     private override init() {}
+
+    static func getInstance() -> FeedModel {
+         return singleton
+    }
     
     func get() {
         let client = QiitaClient()
@@ -20,7 +23,11 @@ class FeedModel: NSObject {
     }
     
     override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
-        self.articles = self.xmlParseDelegate.articles
+        // VCにイベント通知
+        if xmlParseDelegate.articles.count != 0 {
+            self.articles = xmlParseDelegate.articles
+            self.articles.removeAll(keepCapacity: false)
+        }
         xmlParseDelegate.removeObserver(self, forKeyPath: "articles")
     }
 }
