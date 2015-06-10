@@ -48,6 +48,7 @@
 		<dict>
 			<key>children</key>
 			<array>
+				<string>C075DE051B27D5FD00AF2611</string>
 				<string>C075DE041B26F57200AF2611</string>
 				<string>C075DE031B26F56300AF2611</string>
 				<string>C075DDF41B26CEC600AF2611</string>
@@ -55,8 +56,6 @@
 			</array>
 			<key>isa</key>
 			<string>PBXGroup</string>
-			<key>name</key>
-			<string>App</string>
 			<key>path</key>
 			<string>App</string>
 			<key>sourceTree</key>
@@ -72,8 +71,6 @@
 			</array>
 			<key>isa</key>
 			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Common</string>
 			<key>path</key>
 			<string>Common</string>
 			<key>sourceTree</key>
@@ -167,6 +164,8 @@
 			<string>PBXFileReference</string>
 			<key>lastKnownFileType</key>
 			<string>sourcecode.swift</string>
+			<key>name</key>
+			<string>XmlParseDelegate.swift</string>
 			<key>path</key>
 			<string>XmlParseDelegate.swift</string>
 			<key>sourceTree</key>
@@ -207,8 +206,6 @@
 			</array>
 			<key>isa</key>
 			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Entity</string>
 			<key>path</key>
 			<string>Entity</string>
 			<key>sourceTree</key>
@@ -218,17 +215,50 @@
 		<dict>
 			<key>children</key>
 			<array>
-				<string>C075DDFF1B26F34E00AF2611</string>
 				<string>C075DDFD1B26EEEE00AF2611</string>
 			</array>
 			<key>isa</key>
 			<string>PBXGroup</string>
-			<key>name</key>
-			<string>Infrastructure</string>
 			<key>path</key>
 			<string>Infrastructure</string>
 			<key>sourceTree</key>
 			<string>&lt;group&gt;</string>
+		</dict>
+		<key>C075DE051B27D5FD00AF2611</key>
+		<dict>
+			<key>children</key>
+			<array>
+				<string>C075DDFF1B26F34E00AF2611</string>
+				<string>C075DE061B27D60F00AF2611</string>
+			</array>
+			<key>isa</key>
+			<string>PBXGroup</string>
+			<key>name</key>
+			<string>Model</string>
+			<key>path</key>
+			<string>Model</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>C075DE061B27D60F00AF2611</key>
+		<dict>
+			<key>fileEncoding</key>
+			<string>4</string>
+			<key>isa</key>
+			<string>PBXFileReference</string>
+			<key>lastKnownFileType</key>
+			<string>sourcecode.swift</string>
+			<key>path</key>
+			<string>FeedModel.swift</string>
+			<key>sourceTree</key>
+			<string>&lt;group&gt;</string>
+		</dict>
+		<key>C075DE071B27D60F00AF2611</key>
+		<dict>
+			<key>fileRef</key>
+			<string>C075DE061B27D60F00AF2611</string>
+			<key>isa</key>
+			<string>PBXBuildFile</string>
 		</dict>
 		<key>C096B8D31B2348FC00CE8E80</key>
 		<dict>
@@ -353,6 +383,7 @@
 				<string>C075DDF81B26EA3900AF2611</string>
 				<string>C0997CA51B21740800F32FA0</string>
 				<string>C0997C761B1F291D00F32FA0</string>
+				<string>C075DE071B27D60F00AF2611</string>
 				<string>C075DE021B26F46400AF2611</string>
 				<string>C0997C791B1F291D00F32FA0</string>
 				<string>C0997C991B1F2A4B00F32FA0</string>

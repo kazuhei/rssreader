@@ -5,8 +5,7 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
 
     var articles: [Article] = []
     var selectedIndex: Int = 0
-    let xmlParseDelegate: XMLParseDelegate = XMLParseDelegate()
-    
+        
     @IBOutlet weak var tableView: UITableView!
 
     @IBAction func onTouchRefresh(sender: UIBarButtonItem) {
@@ -104,16 +103,15 @@ class ViewController: UIViewController, UITableViewDelegate, UITableViewDataSour
     }
     
     func loadData() {
-        let client = QiitaClient()
-        xmlParseDelegate.addObserver(self, forKeyPath: "articles", options: .New, context: nil)
-        client.call(QiitaClient.FeedRequest(xmlParseDelegate: self.xmlParseDelegate)){
-            // KVOで変更を取得するのでcallbackはなし
-        }
+        FeedModel.sharedInstance.addObserver(self, forKeyPath: "articles", options: .New, context: nil)
+        FeedModel.sharedInstance.get()
     }
     
     override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
-        self.articles = self.xmlParseDelegate.articles
+        self.articles = FeedModel.sharedInstance.articles
         self.tableView.reloadData()
+        FeedModel.sharedInstance.removeObserver(self, forKeyPath: "articles")
     }
+
 }
 
