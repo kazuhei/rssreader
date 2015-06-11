@@ -1,31 +1,29 @@
 import Foundation
+import Alamofire
 
 class QiitaClient: BaseClient {
     let root = "http://qiita.com"
     
     func call<T: BaseRequest>(request: T, callback: (T.BaseResponse) -> Void) {
-        let feedUrl = NSURL(string: root + "/" + request.path)!
-        let urlRequest: NSURLRequest = NSURLRequest(URL: feedUrl)
-        let queue: NSOperationQueue = NSOperationQueue.mainQueue()
-        
-        // リクエスト
-        NSURLConnection.sendAsynchronousRequest(urlRequest, queue: queue) {
-            res, data, error in
+
+        let requestUrl = NSURL(string: root + "/" + request.path)!
+        Alamofire.request(request.method, requestUrl, parameters: request.params).response {
+            req, res, data, connectionError in
             
-            if error != nil {
+            if let error = connectionError {
                 println("通信エラーだよ")
-                return
             }
             
-            
-            // httpレスポンスとして扱う
-            let httpResponse = res as! NSHTTPURLResponse
-            if httpResponse.statusCode != 200 {
+            let statusCode = res?.statusCode
+            if statusCode != 200 {
                 println("エラー応答だよ")
+                
             }
             
-            if let response = request.makeResponse(data) {
-                callback(response)
+            if let xmlData = data as? NSData {
+                if let response = request.makeResponse(xmlData) {
+                    callback(response)
+                }
             }
         }
     }

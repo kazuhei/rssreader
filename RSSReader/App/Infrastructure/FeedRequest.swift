@@ -1,9 +1,12 @@
-
 import Foundation
+import Alamofire
 
 extension QiitaClient {
     class FeedRequest: BaseRequest {
         let path = "tags/Swift/feed.atom"
+        let method = Alamofire.Method.GET
+        let params = [String: String]()
+        
         let xmlParseDelegate: XMLParseDelegate
         
         init (xmlParseDelegate: XMLParseDelegate) {
