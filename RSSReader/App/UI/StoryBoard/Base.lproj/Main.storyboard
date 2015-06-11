@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="7mK-64-Y6w">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="c5S-LT-ALK">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
@@ -108,6 +108,24 @@
             </objects>
             <point key="canvasLocation" x="1679" y="339"/>
         </scene>
+        <!--新着記事一覧-->
+        <scene sceneID="O0v-ol-4MX">
+            <objects>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2z4-QA-dwp" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <viewController title="新着記事一覧" id="Kdd-hq-LSr" customClass="ArticleListViewController" customModule="RSSReader" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="S2u-oq-EG2"/>
+                        <viewControllerLayoutGuide type="bottom" id="8mf-9T-gRG"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="652-DK-Lte">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+            </objects>
+            <point key="canvasLocation" x="1602" y="1024"/>
+        </scene>
         <!--Navigation Controller-->
         <scene sceneID="xDM-6C-FmS">
             <objects>
@@ -125,6 +143,58 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="7lb-tA-LOc" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="266" y="339"/>
+        </scene>
+        <!--Main Menu View Controller-->
+        <scene sceneID="Pkz-QK-bAt">
+            <objects>
+                <viewController id="C7x-X1-rgU" customClass="MainMenuViewController" customModule="RSSReader" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="obB-nQ-xb2"/>
+                        <viewControllerLayoutGuide type="bottom" id="iEe-57-yVb"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="y4j-LO-TBr">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="eBF-VB-pyM" userLabel="mainscreen">
+                                <rect key="frame" x="0.0" y="64" width="600" height="536"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="eBF-VB-pyM" secondAttribute="trailing" id="6GB-ll-qRj"/>
+                            <constraint firstItem="eBF-VB-pyM" firstAttribute="top" secondItem="obB-nQ-xb2" secondAttribute="bottom" id="iYl-dO-Uny"/>
+                            <constraint firstItem="iEe-57-yVb" firstAttribute="top" secondItem="eBF-VB-pyM" secondAttribute="bottom" id="mEv-UV-ZrR"/>
+                            <constraint firstItem="eBF-VB-pyM" firstAttribute="leading" secondItem="y4j-LO-TBr" secondAttribute="leading" id="tNd-Mt-HPI"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="pd4-j2-Z9G"/>
+                    <connections>
+                        <outlet property="mainscreen" destination="eBF-VB-pyM" id="EUO-NM-Zn1"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="89e-7k-HWq" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="952" y="1022"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="CdM-8l-r6y">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="c5S-LT-ALK" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="3C5-C7-rCb">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="C7x-X1-rgU" kind="relationship" relationship="rootViewController" id="eJL-LJ-7Vo"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wle-kQ-ykD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="265" y="1022"/>
         </scene>
     </scenes>
 </document>
