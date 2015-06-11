@@ -103,7 +103,12 @@ class ViewController: BaseViewController, UITableViewDelegate, UITableViewDataSo
     }
     
     func loadData() {
-        addModelObserve(FeedModel.getInstance(), forKeyPath: "articles", options: NSKeyValueObservingOptions.Prior, context: nil)
+        addModelObserve(FeedModel.getInstance(), forKeyPath: "articles", options: NSKeyValueObservingOptions.Prior, context: nil){
+            if FeedModel.getInstance().articles.count != 0 {
+                self.articles = FeedModel.getInstance().articles
+                self.tableView.reloadData()
+            }
+        }
         FeedModel.getInstance().get()
     }
     

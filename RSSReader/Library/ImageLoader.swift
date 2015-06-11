@@ -71,6 +71,48 @@ class ImageLoader {
         return nil
     }
     
+    func getTagImage(tagName: String) -> UIImage {
+        let key = "tag" + tagName
+        if let image = cache.objectForKey(key) as? UIImage {
+            return image
+        } else {
+            // キャッシュされていなければ作る
+            // 文字列の作成
+            let tagString = NSAttributedString(
+                string: tagName,
+                attributes:[NSForegroundColorAttributeName: UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 0.9),
+                    NSFontAttributeName: UIFont.systemFontOfSize(14)])
+            // タグ名の文字列を表示するのに必要な横幅を計算する
+            let textSize = tagString.boundingRectWithSize(CGSizeMake(200, 200), options: NSStringDrawingOptions.UsesLineFragmentOrigin, context: nil)
+            // タグ画像を作る
+            let imageWidth: CGFloat = textSize.width + 16
+            let imageHeight: CGFloat = textSize.height + 2
+            UIGraphicsBeginImageContextWithOptions(CGSizeMake(imageWidth, imageHeight), false, 0)
+            
+            let context = UIGraphicsGetCurrentContext()
+            CGContextBeginPath(context);
+            CGContextMoveToPoint(context, 10, 0);
+            CGContextAddLineToPoint(context, 0, imageHeight/2);
+            CGContextAddLineToPoint(context, 10, imageHeight);
+            CGContextAddLineToPoint(context, imageWidth, imageHeight);
+            CGContextAddLineToPoint(context, imageWidth, 0);
+            CGContextClosePath(context);
+            CGContextClip(context);
+            CGContextSetRGBFillColor(context, 0.5, 0.5, 0.5, 0.2)
+            CGContextAddRect(context, CGRectMake(0, 0, imageWidth, imageHeight))
+            CGContextFillPath(context)
+            tagString.drawAtPoint(CGPointMake(12, 0))
+            
+            let tagImage = UIGraphicsGetImageFromCurrentImageContext()
+            
+            UIGraphicsEndImageContext()
+            
+            // キャッシュに入れる
+            cache.setObject(tagImage, forKey: key)
+            return tagImage
+        }
+    }
+    
     private func resize(image: UIImage, size: CGSize) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
         image.drawInRect(CGRectMake(0, 0, size.width, size.height))

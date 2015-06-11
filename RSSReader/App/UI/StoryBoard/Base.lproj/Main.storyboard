@@ -108,24 +108,6 @@
             </objects>
             <point key="canvasLocation" x="1679" y="339"/>
         </scene>
-        <!--新着記事一覧-->
-        <scene sceneID="O0v-ol-4MX">
-            <objects>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="2z4-QA-dwp" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <viewController title="新着記事一覧" id="Kdd-hq-LSr" customClass="ArticleListViewController" customModule="RSSReader" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="S2u-oq-EG2"/>
-                        <viewControllerLayoutGuide type="bottom" id="8mf-9T-gRG"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="652-DK-Lte">
-                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
-                </viewController>
-            </objects>
-            <point key="canvasLocation" x="1602" y="1024"/>
-        </scene>
         <!--Navigation Controller-->
         <scene sceneID="xDM-6C-FmS">
             <objects>
