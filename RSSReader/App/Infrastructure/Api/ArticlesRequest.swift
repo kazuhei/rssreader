@@ -3,7 +3,7 @@ import Alamofire
 import SwiftyJSON
 
 extension QiitaApiClient {
-    class ArticlesRequest: BaseRequest, URLRequestConvertible {
+    class ArticlesRequest: BaseRequest {
         let path = "items"
         let method = Alamofire.Method.GET
         var params = [String: String]()
@@ -21,15 +21,6 @@ extension QiitaApiClient {
                 articleList.append(ArticleEntity(articleData: articleJson))
             }
             return articleList
-        }
-        
-        var URLRequest: NSURLRequest {
-            let URL = NSURL(string: QiitaApiClient().root + "/" + path)!
-            let mutableURLRequest = NSMutableURLRequest(URL: URL.URLByAppendingPathComponent(path))
-            mutableURLRequest.HTTPMethod = method.rawValue
-            mutableURLRequest.addValue("Authorization", forHTTPHeaderField: "Bearer 8256943d75529508c9d922d2da6c790a81d20274")
-            
-            return Alamofire.ParameterEncoding.JSON.encode(mutableURLRequest, parameters: params).0
         }
     }
 }

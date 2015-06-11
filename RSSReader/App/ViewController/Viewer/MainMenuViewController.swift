@@ -8,9 +8,8 @@ class MainMenuViewController: BaseViewController {
     
     @IBOutlet weak var mainscreen: UIView!
     
-    override func viewDidAppear(animated: Bool) {
-        super.viewDidAppear(animated)
-        
+    override func viewDidLoad() {
+        super.viewDidLoad()
         self.title = "PAGE MENU"
         // 各ページのViewcontrollerを用意する
         let articleListStoryboard = UIStoryboard(name: "ArticleList", bundle: nil)

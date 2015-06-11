@@ -24,7 +24,7 @@ class ArticleTableViewCell: UITableViewCell {
         ]
         let textSize = NSString(string: text).boundingRectWithSize(CGSizeMake(titleLabel.frame.width, 100), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: attributeDict, context: nil)
         
-        return max(textSize.height + 60, 104)
+        return max(textSize.height + 64, 84)
     }
     
     func configure(article: ArticleEntity) {

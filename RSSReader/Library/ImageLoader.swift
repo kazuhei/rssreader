@@ -80,7 +80,7 @@ class ImageLoader {
             // 文字列の作成
             let tagString = NSAttributedString(
                 string: tagName,
-                attributes:[NSForegroundColorAttributeName: UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 0.9),
+                attributes:[NSForegroundColorAttributeName: UIColor(red: 0, green: 0, blue: 0, alpha: 0.7),
                     NSFontAttributeName: UIFont.systemFontOfSize(14)])
             // タグ名の文字列を表示するのに必要な横幅を計算する
             let textSize = tagString.boundingRectWithSize(CGSizeMake(200, 200), options: NSStringDrawingOptions.UsesLineFragmentOrigin, context: nil)

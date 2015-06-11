@@ -5,3 +5,4 @@ Podfile.lock
 *.pbxuser
 *.xccheckout
 *.xcuserstate
+RSSReader/accesstoken.txt
