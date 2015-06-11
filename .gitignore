@@ -1,1 +1,6 @@
 RSSReader.xcodeproj/xcuserdata
+Pods
+Podfile.lock
+*.pbxuser
+*.xccheckout
+*.xcuserstate
