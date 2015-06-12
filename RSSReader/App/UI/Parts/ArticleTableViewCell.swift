@@ -7,6 +7,11 @@ class ArticleTableViewCell: UITableViewCell {
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var tagListView: UIView!
+    @IBOutlet weak var stockIcon: UIImageView!
+    @IBOutlet weak var stockCountLabel: UILabel!
+    @IBOutlet weak var commentCountLabel: UILabel!
+    @IBOutlet weak var commentIcon: UIImageView!
+    
     
     func getHeight(article: ArticleEntity, width: CGFloat) -> CGFloat {
         // そのままだとstoryboard上のサイズになってしまっているので、横幅を設定してlayoutsubviewsを呼ばせることによりcellを正しい形にする。
@@ -72,5 +77,12 @@ class ArticleTableViewCell: UITableViewCell {
                 }
             }
         }
+        
+        // stock数、コメント数
+        stockIcon.image = ImageLoader.sharedInstance.stockIcon(stockIcon.frame.size)
+        stockCountLabel.text = String(arc4random() % 1000)
+        commentIcon.image = ImageLoader.sharedInstance.commentIcon(commentIcon.frame.size)
+        commentCountLabel.text = String(arc4random() % 1000)
+    
     }
 }

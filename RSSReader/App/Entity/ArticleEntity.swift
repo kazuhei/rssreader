@@ -5,14 +5,16 @@ import SwiftyJSON
 class ArticleEntity: NSObject {
     let id: String
     let title: String
+    let body: String
     let createdAt: String
     let tags: [TagEntity]?
     let user: UserEntity?
     
     init(articleData: JSON) {
-        self.id = articleData["id"].string ?? ""
+        self.id = articleData["id"].string!
         self.title = articleData["title"].string ?? "無題"
-        self.createdAt = articleData["created_at"].string ?? ""
+        self.body = articleData["body"].string ?? ""
+        self.createdAt = articleData["created_at"].string!
         var tagArray: [TagEntity] = []
         for (index, tagData) in articleData["tags"] {
             tagArray.append(TagEntity(tagData: tagData))

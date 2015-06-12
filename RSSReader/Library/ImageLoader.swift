@@ -113,6 +113,62 @@ class ImageLoader {
         }
     }
     
+    func stockIcon(size: CGSize) -> UIImage {
+        let key = "stockIcon"
+            + String(stringInterpolationSegment: size.width)
+            + "x"
+            + String(stringInterpolationSegment: size.height)
+        if let image = cache.objectForKey(key) as? UIImage {
+            return image
+        } else {
+            UIGraphicsBeginImageContextWithOptions(size, false, 0)
+            
+            let context = UIGraphicsGetCurrentContext()
+            CGContextBeginPath(context);
+            UIColor(red: 0, green: 0, blue: 0, alpha: 0.5).setStroke()
+            CGContextMoveToPoint(context, 1, 1);
+            CGContextAddLineToPoint(context, size.width/3, 1);
+            CGContextAddLineToPoint(context, size.width/3, size.height/4);
+            CGContextAddLineToPoint(context, size.width - 1, size.height/4);
+            CGContextAddLineToPoint(context, size.width - 1, size.height - 1);
+            CGContextAddLineToPoint(context, 1, size.height - 1);
+            CGContextClosePath(context);
+            CGContextStrokePath(context)
+            
+            let iconImage = UIGraphicsGetImageFromCurrentImageContext()
+            
+            UIGraphicsEndImageContext()
+            
+            // キャッシュに入れる
+            cache.setObject(iconImage, forKey: key)
+            return iconImage
+        }
+    }
+    
+    func commentIcon(size: CGSize) -> UIImage {
+        let key = "commentIcon"
+            + String(stringInterpolationSegment: size.width)
+            + "x"
+            + String(stringInterpolationSegment: size.height)
+        if let image = cache.objectForKey(key) as? UIImage {
+            return image
+        } else {
+            UIGraphicsBeginImageContextWithOptions(size, false, 0)
+            
+            let context = UIGraphicsGetCurrentContext()
+            CGContextBeginPath(context);
+            UIColor(red: 0, green: 0, blue: 0, alpha: 0.5).setStroke()
+            CGContextStrokeEllipseInRect(context, CGRectMake(1, 2, size.width - 2, size.height - 4));
+            let iconImage = UIGraphicsGetImageFromCurrentImageContext()
+            
+            UIGraphicsEndImageContext()
+            
+            // キャッシュに入れる
+            cache.setObject(iconImage, forKey: key)
+            return iconImage
+        }
+    }
+    
     private func resize(image: UIImage, size: CGSize) -> UIImage {
         UIGraphicsBeginImageContextWithOptions(size, false, 0.0)
         image.drawInRect(CGRectMake(0, 0, size.width, size.height))

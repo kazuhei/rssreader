@@ -2,11 +2,17 @@
 import Foundation
 import UIKit
 
-class ArticleListViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate {
+class ArticleListViewController: PageViewController, UITableViewDataSource, UITableViewDelegate {
     
     var articles: [ArticleEntity] = []
     
     @IBOutlet weak var articleTableView: UITableView!
+    
+    // navigationBarの設定
+    override func navigationRightBarButtons() -> [UIBarButtonItem] {
+        let refreshButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: "refresh")
+        return [refreshButton]
+    }
     
     override func viewDidLoad() {
         articleTableView.delegate = self
@@ -21,7 +27,7 @@ class ArticleListViewController: BaseViewController, UITableViewDataSource, UITa
             self.articles = ArticleModel.getInstance().articles
             self.articleTableView.reloadData()
         }
-        ArticleModel.getInstance().get()
+        ArticleModel.getInstance().get(1)
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -42,5 +48,9 @@ class ArticleListViewController: BaseViewController, UITableViewDataSource, UITa
             return stabCell.getHeight(articles[indexPath.row], width: tableView.frame.width)
         }
         return 100
+    }
+    
+    func refresh() {
+        ArticleModel.getInstance().get(1)
     }
 }

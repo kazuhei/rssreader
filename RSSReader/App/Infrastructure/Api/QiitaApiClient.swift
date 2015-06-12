@@ -2,7 +2,7 @@ import Foundation
 import Alamofire
 
 class QiitaApiClient: BaseClient {
-    let root = "http://qiita.com/api/v2"
+    let root = "https://qiita.com/api/v2"
     
     func call<T: BaseRequest>(request: T, callback: (T.BaseResponse) -> Void) {
         var manager = Manager.sharedInstance
@@ -11,11 +11,9 @@ class QiitaApiClient: BaseClient {
         manager.session.configuration.HTTPAdditionalHeaders = [
             "Authorization": accesstoken
         ]
-        manager.request(request.method, root + "/" + request.path, parameters: request.params).response {
+        let url = root + "/" + request.path
+        manager.request(request.method, url, parameters: request.params).response {
             req, res, data, connectionError in
-            
-            println(req as! NSMutableURLRequest)
-            println(res)
             
             if let error = connectionError {
                 println("通信エラーだよ")

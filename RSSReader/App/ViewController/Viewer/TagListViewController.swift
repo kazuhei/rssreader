@@ -1,6 +1,6 @@
 
 import Foundation
 
-class TagListViewController: BaseViewController {
+class TagListViewController: PageViewController {
     
 }

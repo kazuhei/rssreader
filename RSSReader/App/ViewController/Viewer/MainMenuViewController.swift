@@ -2,9 +2,10 @@ import Foundation
 import UIKit
 import PageMenu
 
-class MainMenuViewController: BaseViewController {
+class MainMenuViewController: BaseViewController, CAPSPageMenuDelegate {
     
     var pageMenu: CAPSPageMenu?
+    var controllerArray: [UIViewController] = []
     
     @IBOutlet weak var mainscreen: UIView!
     
@@ -18,14 +19,14 @@ class MainMenuViewController: BaseViewController {
         let stockListViewController = stockListStoryboard.instantiateInitialViewController() as! UIViewController
         let tagListStoryboard = UIStoryboard(name: "TagList", bundle: nil)
         let tagListViewController = tagListStoryboard.instantiateInitialViewController() as! UIViewController
-        let controllerArray: [UIViewController] = [articleListViewController, stockListViewController, tagListViewController]
+        controllerArray = [articleListViewController, stockListViewController, tagListViewController]
         
         let menuParams: [CAPSPageMenuOption] = [
             .SelectionIndicatorHeight(4),
-            .BottomMenuHairlineColor(UIColor.orangeColor()),
-            .SelectionIndicatorColor(UIColor.orangeColor()),
+            .BottomMenuHairlineColor(UIColor(red: 0.2, green: 0.8, blue: 0.2, alpha: 0.8)),
+            .SelectionIndicatorColor(UIColor(red: 0.2, green: 0.8, blue: 0.2, alpha: 0.8)),
             .ViewBackgroundColor(UIColor.whiteColor()),
-            .SelectedMenuItemLabelColor(UIColor.orangeColor()),
+            .SelectedMenuItemLabelColor(UIColor(red: 0.2, green: 0.8, blue: 0.2, alpha: 0.8)),
             .UnselectedMenuItemLabelColor(UIColor.grayColor()),
             .ScrollMenuBackgroundColor(UIColor.whiteColor()),
             .MenuItemWidthBasedOnTitleTextWidth(true)
@@ -33,6 +34,21 @@ class MainMenuViewController: BaseViewController {
         
         pageMenu = CAPSPageMenu(viewControllers: controllerArray, frame: CGRectMake(0.0, 0.0, self.mainscreen.frame.width, self.mainscreen.frame.height), pageMenuOptions: menuParams)
         
+        pageMenu!.delegate = self
         self.mainscreen.addSubview(pageMenu!.view)
+        
+        // navigationBarの初期化
+        let firstPageViewController = articleListViewController as! PageViewController
+        self.navigationItem.setRightBarButtonItems(firstPageViewController.navigationRightBarButtons(), animated: false)
+    }
+    
+    func didMoveToPage(controller: UIViewController, index: Int) {
+        
+    }
+    
+    func willMoveToPage(controller: UIViewController, index: Int) {
+        if let nextVC = controllerArray[index] as? PageViewController {
+            self.navigationItem.setRightBarButtonItems(nextVC.navigationRightBarButtons(), animated: false)
+        }
     }
 }

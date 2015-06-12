@@ -6,6 +6,7 @@ extension QiitaClient {
         let path = "tags/Swift/feed.atom"
         let method = Alamofire.Method.GET
         let params = [String: String]()
+        let version: String? = nil
         
         let xmlParseDelegate: XMLParseDelegate
         

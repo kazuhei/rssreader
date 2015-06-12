@@ -5,6 +5,9 @@ class ArticleModel: BaseModel {
     
     // KVO用のプロパティ
     dynamic var articles: [ArticleEntity] = []
+    dynamic var stocks: [ArticleEntity] = []
+    
+    let perPage: Int = 30
     
     private override init() {}
     
@@ -12,11 +15,27 @@ class ArticleModel: BaseModel {
         return singleton
     }
     
-    func get() {
+    func get(page: Int) {
         let client = QiitaApiClient()
-        client.call(QiitaApiClient.ArticlesRequest(page: 1, perPage: 30)){
+        client.call(QiitaApiClient.ArticlesRequest(page: 1, perPage: perPage)){
             data in
             self.articles = data
+        }
+    }
+    
+    func get(keyword: String, page: Int) {
+        let client = QiitaApiClient()
+        client.call(QiitaApiClient.ArticlesRequest(page: 1, perPage: perPage)){
+            data in
+            self.articles = data
+        }
+    }
+    
+    func getStocks(page: Int) {
+        let client = QiitaApiClient()
+        client.call(QiitaApiClient.ArticleStocksRequest(userId: "kazuhei0108", page: 1, perPage: perPage)){
+            data in
+            self.stocks = data
         }
     }
 }
