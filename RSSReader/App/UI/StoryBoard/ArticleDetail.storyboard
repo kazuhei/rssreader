@@ -4,19 +4,45 @@
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
     </dependencies>
     <scenes>
-        <!--View Controller-->
+        <!--Article Detail View Controller-->
         <scene sceneID="4ey-7q-zfe">
             <objects>
-                <viewController id="5Qa-qb-6hs" sceneMemberID="viewController">
+                <viewController id="5Qa-qb-6hs" customClass="ArticleDetailViewController" customModule="RSSReader" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="DAZ-PV-fu3"/>
                         <viewControllerLayoutGuide type="bottom" id="lpF-OK-gZD"/>
                     </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="KSL-R6-mL1">
+                    <scrollView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" ambiguous="YES" id="ZCf-t1-Sg7">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="CgK-Uv-aeA" userLabel="HeaderView" customClass="HeaderView" customModule="RSSReader" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="200"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                            <view contentMode="scaleToFill" ambiguous="YES" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="RTL-YT-dZd" userLabel="MainView">
+                                <rect key="frame" x="0.0" y="200" width="600" height="400"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                            </view>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                    </view>
+                        <constraints>
+                            <constraint firstItem="RTL-YT-dZd" firstAttribute="leading" secondItem="ZCf-t1-Sg7" secondAttribute="leading" id="5BW-Ux-F4Z"/>
+                            <constraint firstItem="CgK-Uv-aeA" firstAttribute="leading" secondItem="ZCf-t1-Sg7" secondAttribute="leading" id="EqV-kS-0re"/>
+                            <constraint firstItem="RTL-YT-dZd" firstAttribute="top" secondItem="CgK-Uv-aeA" secondAttribute="bottom" id="RrA-8n-kWB"/>
+                            <constraint firstItem="CgK-Uv-aeA" firstAttribute="width" secondItem="ZCf-t1-Sg7" secondAttribute="width" id="V37-Gq-rAH"/>
+                            <constraint firstAttribute="trailing" secondItem="RTL-YT-dZd" secondAttribute="trailing" id="Xc9-d5-NbH"/>
+                            <constraint firstItem="RTL-YT-dZd" firstAttribute="width" secondItem="ZCf-t1-Sg7" secondAttribute="width" id="cZO-ME-cWc"/>
+                            <constraint firstAttribute="bottom" secondItem="RTL-YT-dZd" secondAttribute="bottom" id="iSb-fF-9l2"/>
+                            <constraint firstAttribute="trailing" secondItem="CgK-Uv-aeA" secondAttribute="trailing" id="lcV-ic-m1O"/>
+                            <constraint firstItem="CgK-Uv-aeA" firstAttribute="top" secondItem="ZCf-t1-Sg7" secondAttribute="top" id="nnP-h5-jre"/>
+                            <constraint firstItem="RTL-YT-dZd" firstAttribute="top" secondItem="CgK-Uv-aeA" secondAttribute="bottom" id="uFO-Hr-jLL"/>
+                        </constraints>
+                    </scrollView>
+                    <connections>
+                        <outlet property="headerView" destination="CgK-Uv-aeA" id="RdE-EB-vbk"/>
+                        <outlet property="mainView" destination="RTL-YT-dZd" id="7qf-v4-CHR"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="pb0-8o-JUP" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>

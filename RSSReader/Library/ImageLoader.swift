@@ -80,7 +80,7 @@ class ImageLoader {
             // 文字列の作成
             let tagString = NSAttributedString(
                 string: tagName,
-                attributes:[NSForegroundColorAttributeName: UIColor(red: 0, green: 0, blue: 0, alpha: 0.7),
+                attributes:[NSForegroundColorAttributeName: UIColor(red: 0.3, green: 0.3, blue: 0.3, alpha: 1),
                     NSFontAttributeName: UIFont.systemFontOfSize(14)])
             // タグ名の文字列を表示するのに必要な横幅を計算する
             let textSize = tagString.boundingRectWithSize(CGSizeMake(200, 200), options: NSStringDrawingOptions.UsesLineFragmentOrigin, context: nil)
@@ -98,7 +98,7 @@ class ImageLoader {
             CGContextAddLineToPoint(context, imageWidth, 0);
             CGContextClosePath(context);
             CGContextClip(context);
-            CGContextSetRGBFillColor(context, 0.5, 0.5, 0.5, 0.2)
+            CGContextSetRGBFillColor(context, 0.8, 0.8, 0.8, 1)
             CGContextAddRect(context, CGRectMake(0, 0, imageWidth, imageHeight))
             CGContextFillPath(context)
             tagString.drawAtPoint(CGPointMake(12, 0))
@@ -125,10 +125,10 @@ class ImageLoader {
             
             let context = UIGraphicsGetCurrentContext()
             CGContextBeginPath(context);
-            UIColor(red: 0, green: 0, blue: 0, alpha: 0.5).setStroke()
+            UIColor(red: 0.3, green: 0.3, blue: 0.3, alpha: 1).setStroke()
             CGContextMoveToPoint(context, 1, 1);
             CGContextAddLineToPoint(context, size.width/3, 1);
-            CGContextAddLineToPoint(context, size.width/3, size.height/4);
+            CGContextAddLineToPoint(context, size.width/3 + 2, size.height/4);
             CGContextAddLineToPoint(context, size.width - 1, size.height/4);
             CGContextAddLineToPoint(context, size.width - 1, size.height - 1);
             CGContextAddLineToPoint(context, 1, size.height - 1);
@@ -157,7 +157,7 @@ class ImageLoader {
             
             let context = UIGraphicsGetCurrentContext()
             CGContextBeginPath(context);
-            UIColor(red: 0, green: 0, blue: 0, alpha: 0.5).setStroke()
+            UIColor(red: 0.3, green: 0.3, blue: 0.3, alpha: 1).setStroke()
             CGContextStrokeEllipseInRect(context, CGRectMake(1, 2, size.width - 2, size.height - 4));
             let iconImage = UIGraphicsGetImageFromCurrentImageContext()
             

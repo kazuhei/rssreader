@@ -126,10 +126,10 @@
             </objects>
             <point key="canvasLocation" x="266" y="339"/>
         </scene>
-        <!--Main Menu View Controller-->
+        <!--Main-->
         <scene sceneID="Pkz-QK-bAt">
             <objects>
-                <viewController id="C7x-X1-rgU" customClass="MainMenuViewController" customModule="RSSReader" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Main" id="C7x-X1-rgU" customClass="MainMenuViewController" customModule="RSSReader" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="obB-nQ-xb2"/>
                         <viewControllerLayoutGuide type="bottom" id="iEe-57-yVb"/>

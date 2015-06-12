@@ -50,6 +50,14 @@ class ArticleListViewController: PageViewController, UITableViewDataSource, UITa
         return 100
     }
     
+    func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
+        tableView.deselectRowAtIndexPath(indexPath, animated: false)
+        let articleDetailStoryboard = UIStoryboard(name: "ArticleDetail", bundle: nil)
+        let articleDetailViewController = articleDetailStoryboard.instantiateInitialViewController() as! ArticleDetailViewController
+        articleDetailViewController.articleId = articles[indexPath.row].id
+        self.pushViewController = articleDetailViewController
+    }
+    
     func refresh() {
         ArticleModel.getInstance().get(1)
     }

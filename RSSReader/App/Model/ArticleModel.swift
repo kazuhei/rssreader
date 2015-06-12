@@ -6,6 +6,7 @@ class ArticleModel: BaseModel {
     // KVO用のプロパティ
     dynamic var articles: [ArticleEntity] = []
     dynamic var stocks: [ArticleEntity] = []
+    dynamic var singleArticle: ArticleEntity? = nil
     
     let perPage: Int = 30
     
@@ -36,6 +37,14 @@ class ArticleModel: BaseModel {
         client.call(QiitaApiClient.ArticleStocksRequest(userId: "kazuhei0108", page: 1, perPage: perPage)){
             data in
             self.stocks = data
+        }
+    }
+    
+    func getDetail(articleId: String) {
+        let client = QiitaApiClient()
+        client.call(QiitaApiClient.ArticleDetailRequest(articleId: articleId)) {
+            article in
+            self.singleArticle = article
         }
     }
 }
