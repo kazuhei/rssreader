@@ -3,13 +3,17 @@ import Alamofire
 import SwiftyJSON
 
 extension QiitaApiClient {
-    class ArticleSearchRequest: BaseRequest {
+    class ArticlesRequest: BaseRequest {
         let path = "items"
         let method = Alamofire.Method.GET
         var params = [String: String]()
         
-        init(page: Int, perPage: Int, keyword: String) {
-            self.params = ["page": String(page), "per_page": String(perPage), "q": keyword]
+        init(page: Int, perPage: Int) {
+            self.params = ["page": String(page), "per_page": String(perPage)]
+        }
+        
+        init (keyword: String, page: Int, perPage: Int) {
+            self.params = ["query": keyword, "page": String(page), "per_page": String(perPage)]
         }
         
         typealias BaseResponse = [ArticleEntity]

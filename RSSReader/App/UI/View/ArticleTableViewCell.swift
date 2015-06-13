@@ -27,7 +27,7 @@ class ArticleTableViewCell: UITableViewCell {
             NSFontAttributeName: titleLabel.font,
             NSParagraphStyleAttributeName: paragraphStyle
         ]
-        let textSize = NSString(string: text).boundingRectWithSize(CGSizeMake(titleLabel.frame.width, 100), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: attributeDict, context: nil)
+        let textSize = NSString(string: text).boundingRectWithSize(CGSizeMake(titleLabel.frame.width, 600), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: attributeDict, context: nil)
         
         return max(textSize.height + 64, 84)
     }
@@ -42,20 +42,20 @@ class ArticleTableViewCell: UITableViewCell {
         if let user = article.user {
             userNameLabel.text = user.id
             // サムネイルがある場合はサムネイルを表示
-            if let imageUrl = user.profileImageUrl {
-                let mainQueue = dispatch_get_main_queue()
-                let subQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
-                
-                // 画像の読み込みはサブのスレッドで非同期に行う
-                dispatch_async(subQueue) {
-                    if let image = ImageLoader.sharedInstance.get(NSURL(string: imageUrl)!, size: self.profileImage.frame.size) {
-                        dispatch_async(mainQueue) {
-                            self.profileImage.image = image
-                            self.setNeedsLayout()
-                        }
+            let imageUrl = user.profileImageUrl
+            let mainQueue = dispatch_get_main_queue()
+            let subQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0)
+            
+            // 画像の読み込みはサブのスレッドで非同期に行う
+            dispatch_async(subQueue) {
+                if let image = ImageLoader.sharedInstance.get(NSURL(string: imageUrl)!, size: self.profileImage.frame.size) {
+                    dispatch_async(mainQueue) {
+                        self.profileImage.image = image
+                        self.setNeedsLayout()
                     }
                 }
             }
+            
         }
         
         // タグ情報

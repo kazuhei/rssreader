@@ -3,8 +3,8 @@ import Alamofire
 import SwiftyJSON
 
 extension QiitaApiClient {
-    class ArticlesRequest: BaseRequest {
-        let path = "items"
+    class TagsRequest: BaseRequest {
+        let path = "tags"
         let method = Alamofire.Method.GET
         var params = [String: String]()
         
@@ -12,15 +12,15 @@ extension QiitaApiClient {
             self.params = ["page": String(page), "per_page": String(perPage)]
         }
         
-        typealias BaseResponse = [ArticleEntity]
+        typealias BaseResponse = [TagEntity]
         
         func makeResponse(data: NSData) -> BaseResponse? {
             let json = JSON(data:data)
-            var articleList: [ArticleEntity] = []
-            for (index: String, articleJson: JSON) in json {
-                articleList.append(ArticleEntity(articleData: articleJson))
+            var tagList: [TagEntity] = []
+            for (index: String, tagJson: JSON) in json {
+                tagList.append(TagEntity(tagData: tagJson))
             }
-            return articleList
+            return tagList
         }
     }
 }

@@ -40,8 +40,7 @@ class MainMenuViewController: BaseViewController, CAPSPageMenuDelegate {
     }
     
     override func viewWillAppear(animated: Bool) {
-        let currentVC = controllerArray[currentIndex] as! PageViewController
-        self.navigationItem.setRightBarButtonItems(currentVC.navigationRightBarButtons(), animated: false)
+        setNavigationRightBarButtons()
         addObservePushVCFromChildVC()
     }
     
@@ -50,17 +49,14 @@ class MainMenuViewController: BaseViewController, CAPSPageMenuDelegate {
     }
     
     func didMoveToPage(controller: UIViewController, index: Int) {
-        currentIndex = index
-        addObservePushVCFromChildVC()
+        // println("did move to page")
     }
     
     func willMoveToPage(controller: UIViewController, index: Int) {
-        // 子VCの監視を外す
         removeObservePushVCFromChildVC()
-        // navigationBarButtonの設定
-        if let nextVC = controllerArray[index] as? PageViewController {
-            self.navigationItem.setRightBarButtonItems(nextVC.navigationRightBarButtons(), animated: true)
-        }
+        currentIndex = index
+        addObservePushVCFromChildVC()
+        setNavigationRightBarButtons()
     }
     
     // 子VCの投げてくるpushViewControllerを拾って遷移する
@@ -71,7 +67,11 @@ class MainMenuViewController: BaseViewController, CAPSPageMenuDelegate {
         }
     }
     
-    // 子VCの遷移をキャッチ
+    private func setNavigationRightBarButtons() {
+        let currentVC = controllerArray[currentIndex] as! PageViewController
+        self.navigationItem.setRightBarButtonItems(currentVC.navigationRightBarButtons(), animated: false)
+    }
+    
     private func addObservePushVCFromChildVC() {
         let currentVC = controllerArray[currentIndex] as! PageViewController
         currentVC.addObserver(self, forKeyPath: "pushViewController", options: .New, context: nil)

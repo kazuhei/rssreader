@@ -18,7 +18,7 @@ class ArticleModel: BaseModel {
     
     func get(page: Int) {
         let client = QiitaApiClient()
-        client.call(QiitaApiClient.ArticlesRequest(page: 1, perPage: perPage)){
+        client.call(QiitaApiClient.ArticlesRequest(page: page, perPage: perPage)){
             data in
             self.articles = data
         }
@@ -26,7 +26,7 @@ class ArticleModel: BaseModel {
     
     func get(keyword: String, page: Int) {
         let client = QiitaApiClient()
-        client.call(QiitaApiClient.ArticlesRequest(page: 1, perPage: perPage)){
+        client.call(QiitaApiClient.ArticlesRequest(keyword: keyword, page: page, perPage: perPage)){
             data in
             self.articles = data
         }
@@ -34,7 +34,7 @@ class ArticleModel: BaseModel {
     
     func getStocks(page: Int) {
         let client = QiitaApiClient()
-        client.call(QiitaApiClient.ArticleStocksRequest(userId: "kazuhei0108", page: 1, perPage: perPage)){
+        client.call(QiitaApiClient.ArticleStocksRequest(userId: "kazuhei0108", page: page, perPage: perPage)){
             data in
             self.stocks = data
         }
