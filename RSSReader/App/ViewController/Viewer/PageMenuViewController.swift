@@ -1,8 +1,10 @@
 import Foundation
 import UIKit
 import PageMenu
+import MMDrawerController
+import RxSwift
 
-class MainMenuViewController: BaseViewController, CAPSPageMenuDelegate {
+class PageMenuViewController: BaseViewController, CAPSPageMenuDelegate {
     
     var pageMenu: CAPSPageMenu?
     var controllerArray: [UIViewController] = []
@@ -39,6 +41,9 @@ class MainMenuViewController: BaseViewController, CAPSPageMenuDelegate {
         self.mainscreen.addSubview(pageMenu!.view)
     }
     
+    @IBAction func onTouchDrawerButton(sender: UIBarButtonItem) {
+        navigationController?.mm_drawerController.openDrawerSide(.Left, animated: true, completion: nil)
+    }
     override func viewWillAppear(animated: Bool) {
         setNavigationRightBarButtons()
         addObservePushVCFromChildVC()
@@ -49,7 +54,7 @@ class MainMenuViewController: BaseViewController, CAPSPageMenuDelegate {
     }
     
     func didMoveToPage(controller: UIViewController, index: Int) {
-        // println("did move to page")
+        
     }
     
     func willMoveToPage(controller: UIViewController, index: Int) {
@@ -81,5 +86,4 @@ class MainMenuViewController: BaseViewController, CAPSPageMenuDelegate {
         let currentVC = controllerArray[currentIndex] as! PageViewController
         currentVC.removeObserver(self, forKeyPath: "pushViewController")
     }
-
 }

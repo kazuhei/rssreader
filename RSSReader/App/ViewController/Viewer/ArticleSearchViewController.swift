@@ -10,6 +10,7 @@ class ArticleSearchViewController: BaseViewController, UITableViewDataSource, UI
     @IBOutlet weak var articleTableView: UITableView!
     
     override func viewDidLoad() {
+        self.title = keyword + "の検索結果"
         articleTableView.delegate = self
         articleTableView.dataSource = self
         let nib: UINib = UINib(nibName: "ArticleTableViewCell", bundle: nil)

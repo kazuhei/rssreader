@@ -5,9 +5,17 @@ import SwiftyJSON
 class UserEntity: NSObject {
     let id: String
     let profileImageUrl: String
+    let userDescription: String
+    
+    override init() {
+        self.id = "dummy"
+        self.profileImageUrl = "dummy"
+        self.userDescription = "dummy"
+    }
     
     init(userData: JSON) {
         self.id = userData["id"].string!
         self.profileImageUrl = userData["profile_image_url"].string!
+        self.userDescription = userData["description"].string ?? ""
     }
 }

@@ -1,0 +1,6 @@
+[submodule "RSSReader/Vendor/Quick"]
+	path = RSSReader/Vendor/Quick
+	url = https://github.com/Quick/Quick.git
+[submodule "RSSReader/Vendor/Nimble"]
+	path = RSSReader/Vendor/Nimble
+	url = https://github.com/Quick/Nimble.git

@@ -129,7 +129,7 @@
         <!--Main-->
         <scene sceneID="Pkz-QK-bAt">
             <objects>
-                <viewController title="Main" id="C7x-X1-rgU" customClass="MainMenuViewController" customModule="RSSReader" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController title="Main" id="C7x-X1-rgU" customClass="PageMenuViewController" customModule="RSSReader" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="obB-nQ-xb2"/>
                         <viewControllerLayoutGuide type="bottom" id="iEe-57-yVb"/>
@@ -151,9 +151,15 @@
                             <constraint firstItem="eBF-VB-pyM" firstAttribute="leading" secondItem="y4j-LO-TBr" secondAttribute="leading" id="tNd-Mt-HPI"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="pd4-j2-Z9G"/>
+                    <navigationItem key="navigationItem" id="pd4-j2-Z9G">
+                        <barButtonItem key="leftBarButtonItem" title="drawer" id="rt7-yX-NdD">
+                            <connections>
+                                <action selector="onTouchDrawerButton:" destination="C7x-X1-rgU" id="vve-g7-xE2"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
-                        <outlet property="mainscreen" destination="eBF-VB-pyM" id="EUO-NM-Zn1"/>
+                        <outlet property="mainscreen" destination="eBF-VB-pyM" id="hHW-RI-Rmm"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="89e-7k-HWq" userLabel="First Responder" sceneMemberID="firstResponder"/>

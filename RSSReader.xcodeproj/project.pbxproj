@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		5AA7CC7E004DBF5B4E35A744 /* Pods_RSSReaderTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4D4158D98BBBAD5480593838 /* Pods_RSSReaderTests.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		5EA4487C3945CA9CCCF94A2C /* Pods_RSSReader.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C20C9AFBBD45FFD68305DA4 /* Pods_RSSReader.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
-		C010BB151B29327E009BCA13 /* MainMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C010BB141B29327E009BCA13 /* MainMenuViewController.swift */; };
+		C010BB151B29327E009BCA13 /* PageMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C010BB141B29327E009BCA13 /* PageMenuViewController.swift */; };
 		C010BB171B293290009BCA13 /* StockListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C010BB161B293290009BCA13 /* StockListViewController.swift */; };
 		C010BB191B2932B1009BCA13 /* TagListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C010BB181B2932B1009BCA13 /* TagListViewController.swift */; };
 		C010BB1B1B2932C1009BCA13 /* ArticleDetailViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C010BB1A1B2932C1009BCA13 /* ArticleDetailViewController.swift */; };
@@ -44,7 +44,7 @@
 		C0997C761B1F291D00F32FA0 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0997C751B1F291D00F32FA0 /* AppDelegate.swift */; };
 		C0997C791B1F291D00F32FA0 /* RSSReader.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = C0997C771B1F291D00F32FA0 /* RSSReader.xcdatamodeld */; };
 		C0997C7B1B1F291D00F32FA0 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0997C7A1B1F291D00F32FA0 /* ViewController.swift */; };
-		C0997C7E1B1F291D00F32FA0 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0997C7C1B1F291D00F32FA0 /* Main.storyboard */; };
+		C0997C7E1B1F291D00F32FA0 /* PageMenu.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0997C7C1B1F291D00F32FA0 /* PageMenu.storyboard */; };
 		C0997C801B1F291D00F32FA0 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C0997C7F1B1F291D00F32FA0 /* Images.xcassets */; };
 		C0997C831B1F291D00F32FA0 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = C0997C811B1F291D00F32FA0 /* LaunchScreen.xib */; };
 		C0997C8F1B1F291D00F32FA0 /* RSSReaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0997C8E1B1F291D00F32FA0 /* RSSReaderTests.swift */; };
@@ -58,6 +58,12 @@
 		C0F0BA1C1B2C7A67008831CE /* TagEntity.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F0BA1B1B2C7A67008831CE /* TagEntity.swift */; };
 		C0F0BA201B2E6FF4008831CE /* ArticleSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F0BA1F1B2E6FF4008831CE /* ArticleSearchViewController.swift */; };
 		C0F0BA221B2E703B008831CE /* ArticleSearch.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0F0BA211B2E703B008831CE /* ArticleSearch.storyboard */; };
+		C0F0BA2C1B2E8987008831CE /* SideMenu.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = C0F0BA2B1B2E8987008831CE /* SideMenu.storyboard */; };
+		C0F0BA2E1B2E8997008831CE /* SideMenuViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F0BA2D1B2E8997008831CE /* SideMenuViewController.swift */; };
+		C0F0BA301B2E8AEF008831CE /* UserModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F0BA2F1B2E8AEF008831CE /* UserModel.swift */; };
+		C0F0BA321B2E8B41008831CE /* UserRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C0F0BA311B2E8B41008831CE /* UserRequest.swift */; };
+		C0F0BA5F1B2EBB30008831CE /* Quick.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0F0BA471B2EB9B9008831CE /* Quick.framework */; settings = {ATTRIBUTES = (Required, ); }; };
+		C0F0BA601B2EBB3E008831CE /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0F0BA541B2EB9CC008831CE /* Nimble.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -68,6 +74,76 @@
 			remoteGlobalIDString = C0997C6F1B1F291D00F32FA0;
 			remoteInfo = RSSReader;
 		};
+		C0F0BA401B2EB9B9008831CE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C0F0BA371B2EB9B8008831CE /* Quick.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DAEB6B8E1943873100289F44;
+			remoteInfo = "Quick-OSX";
+		};
+		C0F0BA421B2EB9B9008831CE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C0F0BA371B2EB9B8008831CE /* Quick.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DAEB6B991943873100289F44;
+			remoteInfo = "Quick-OSXTests";
+		};
+		C0F0BA441B2EB9B9008831CE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C0F0BA371B2EB9B8008831CE /* Quick.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DA5663E81A4C8D8500193C88;
+			remoteInfo = "QuickFocused-OSXTests";
+		};
+		C0F0BA461B2EB9B9008831CE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C0F0BA371B2EB9B8008831CE /* Quick.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5A5D117C19473F2100F6D13D;
+			remoteInfo = "Quick-iOS";
+		};
+		C0F0BA481B2EB9B9008831CE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C0F0BA371B2EB9B8008831CE /* Quick.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 5A5D118619473F2100F6D13D;
+			remoteInfo = "Quick-iOSTests";
+		};
+		C0F0BA4A1B2EB9B9008831CE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C0F0BA371B2EB9B8008831CE /* Quick.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = DA9876B21A4C70EB0004AA17;
+			remoteInfo = "QuickFocused-iOSTests";
+		};
+		C0F0BA531B2EB9CC008831CE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C0F0BA4C1B2EB9CC008831CE /* Nimble.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1F1A74291940169200FFFC47;
+			remoteInfo = "Nimble-iOS";
+		};
+		C0F0BA551B2EB9CC008831CE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C0F0BA4C1B2EB9CC008831CE /* Nimble.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1F1A74341940169200FFFC47;
+			remoteInfo = "Nimble-iOSTests";
+		};
+		C0F0BA571B2EB9CC008831CE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C0F0BA4C1B2EB9CC008831CE /* Nimble.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1F925EAD195C0D6300ED456B;
+			remoteInfo = "Nimble-OSX";
+		};
+		C0F0BA591B2EB9CC008831CE /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = C0F0BA4C1B2EB9CC008831CE /* Nimble.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 1F925EB7195C0D6300ED456B;
+			remoteInfo = "Nimble-OSXTests";
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -77,7 +153,7 @@
 		751CB899A0460C9847A4EDCA /* Pods-RSSReaderTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RSSReaderTests.release.xcconfig"; path = "Pods/Target Support Files/Pods-RSSReaderTests/Pods-RSSReaderTests.release.xcconfig"; sourceTree = "<group>"; };
 		90EBE9974115350390E51C13 /* Pods-RSSReaderTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RSSReaderTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-RSSReaderTests/Pods-RSSReaderTests.debug.xcconfig"; sourceTree = "<group>"; };
 		9B5CBFC0B150569ACE438B69 /* Pods-RSSReader.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RSSReader.release.xcconfig"; path = "Pods/Target Support Files/Pods-RSSReader/Pods-RSSReader.release.xcconfig"; sourceTree = "<group>"; };
-		C010BB141B29327E009BCA13 /* MainMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MainMenuViewController.swift; sourceTree = "<group>"; };
+		C010BB141B29327E009BCA13 /* PageMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PageMenuViewController.swift; sourceTree = "<group>"; };
 		C010BB161B293290009BCA13 /* StockListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StockListViewController.swift; sourceTree = "<group>"; };
 		C010BB181B2932B1009BCA13 /* TagListViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagListViewController.swift; sourceTree = "<group>"; };
 		C010BB1A1B2932C1009BCA13 /* ArticleDetailViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleDetailViewController.swift; sourceTree = "<group>"; };
@@ -114,7 +190,7 @@
 		C0997C751B1F291D00F32FA0 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		C0997C781B1F291D00F32FA0 /* RSSReader.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = RSSReader.xcdatamodel; sourceTree = "<group>"; };
 		C0997C7A1B1F291D00F32FA0 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		C0997C7D1B1F291D00F32FA0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		C0997C7D1B1F291D00F32FA0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/PageMenu.storyboard; sourceTree = "<group>"; };
 		C0997C7F1B1F291D00F32FA0 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		C0997C821B1F291D00F32FA0 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		C0997C881B1F291D00F32FA0 /* RSSReaderTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RSSReaderTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -130,6 +206,12 @@
 		C0F0BA1B1B2C7A67008831CE /* TagEntity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TagEntity.swift; sourceTree = "<group>"; };
 		C0F0BA1F1B2E6FF4008831CE /* ArticleSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArticleSearchViewController.swift; sourceTree = "<group>"; };
 		C0F0BA211B2E703B008831CE /* ArticleSearch.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = ArticleSearch.storyboard; sourceTree = "<group>"; };
+		C0F0BA2B1B2E8987008831CE /* SideMenu.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = SideMenu.storyboard; sourceTree = "<group>"; };
+		C0F0BA2D1B2E8997008831CE /* SideMenuViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SideMenuViewController.swift; sourceTree = "<group>"; };
+		C0F0BA2F1B2E8AEF008831CE /* UserModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserModel.swift; sourceTree = "<group>"; };
+		C0F0BA311B2E8B41008831CE /* UserRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserRequest.swift; sourceTree = "<group>"; };
+		C0F0BA371B2EB9B8008831CE /* Quick.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Quick.xcodeproj; path = RSSReader/Vendor/Quick/Quick.xcodeproj; sourceTree = SOURCE_ROOT; };
+		C0F0BA4C1B2EB9CC008831CE /* Nimble.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Nimble.xcodeproj; path = RSSReader/Vendor/Nimble/Nimble.xcodeproj; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -145,6 +227,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0F0BA601B2EBB3E008831CE /* Nimble.framework in Frameworks */,
+				C0F0BA5F1B2EBB30008831CE /* Quick.framework in Frameworks */,
 				5AA7CC7E004DBF5B4E35A744 /* Pods_RSSReaderTests.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -185,10 +269,11 @@
 			isa = PBXGroup;
 			children = (
 				C0DCBC911B2ACA2000EFD1F4 /* Page */,
-				C010BB141B29327E009BCA13 /* MainMenuViewController.swift */,
+				C010BB141B29327E009BCA13 /* PageMenuViewController.swift */,
 				C010BB1A1B2932C1009BCA13 /* ArticleDetailViewController.swift */,
 				C03DC6051B2ABA69009763FF /* PageViewController.swift */,
 				C0F0BA1F1B2E6FF4008831CE /* ArticleSearchViewController.swift */,
+				C0F0BA2D1B2E8997008831CE /* SideMenuViewController.swift */,
 			);
 			path = Viewer;
 			sourceTree = "<group>";
@@ -196,12 +281,13 @@
 		C010BB1E1B2939AA009BCA13 /* StoryBoard */ = {
 			isa = PBXGroup;
 			children = (
-				C0997C7C1B1F291D00F32FA0 /* Main.storyboard */,
+				C0997C7C1B1F291D00F32FA0 /* PageMenu.storyboard */,
 				C010BB201B293CE8009BCA13 /* ArticleList.storyboard */,
 				C010BB221B29409F009BCA13 /* StockList.storyboard */,
 				C010BB241B294112009BCA13 /* TagList.storyboard */,
 				C03DC6091B2AC882009763FF /* ArticleDetail.storyboard */,
 				C0F0BA211B2E703B008831CE /* ArticleSearch.storyboard */,
+				C0F0BA2B1B2E8987008831CE /* SideMenu.storyboard */,
 			);
 			path = StoryBoard;
 			sourceTree = "<group>";
@@ -295,6 +381,7 @@
 				C075DE061B27D60F00AF2611 /* FeedModel.swift */,
 				C010BB2C1B29494F009BCA13 /* ArticleModel.swift */,
 				C0F0BA191B2C77ED008831CE /* TagModel.swift */,
+				C0F0BA2F1B2E8AEF008831CE /* UserModel.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -374,6 +461,8 @@
 		C0997C8B1B1F291D00F32FA0 /* RSSReaderTests */ = {
 			isa = PBXGroup;
 			children = (
+				C0F0BA4C1B2EB9CC008831CE /* Nimble.xcodeproj */,
+				C0F0BA371B2EB9B8008831CE /* Quick.xcodeproj */,
 				C0997C8E1B1F291D00F32FA0 /* RSSReaderTests.swift */,
 				C0997C8C1B1F291D00F32FA0 /* Supporting Files */,
 			);
@@ -413,8 +502,33 @@
 			children = (
 				C0F0BA151B2C771F008831CE /* Article */,
 				C0F0BA171B2C7748008831CE /* TagsRequest.swift */,
+				C0F0BA311B2E8B41008831CE /* UserRequest.swift */,
 			);
 			path = Request;
+			sourceTree = "<group>";
+		};
+		C0F0BA381B2EB9B8008831CE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C0F0BA411B2EB9B9008831CE /* Quick.framework */,
+				C0F0BA431B2EB9B9008831CE /* Quick-OSXTests.xctest */,
+				C0F0BA451B2EB9B9008831CE /* QuickFocused-OSXTests.xctest */,
+				C0F0BA471B2EB9B9008831CE /* Quick.framework */,
+				C0F0BA491B2EB9B9008831CE /* Quick-iOSTests.xctest */,
+				C0F0BA4B1B2EB9B9008831CE /* QuickFocused-iOSTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		C0F0BA4D1B2EB9CC008831CE /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				C0F0BA541B2EB9CC008831CE /* Nimble.framework */,
+				C0F0BA561B2EB9CC008831CE /* NimbleTests.xctest */,
+				C0F0BA581B2EB9CC008831CE /* Nimble.framework */,
+				C0F0BA5A1B2EB9CC008831CE /* NimbleTests.xctest */,
+			);
+			name = Products;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -490,6 +604,16 @@
 			mainGroup = C0997C671B1F291D00F32FA0;
 			productRefGroup = C0997C711B1F291D00F32FA0 /* Products */;
 			projectDirPath = "";
+			projectReferences = (
+				{
+					ProductGroup = C0F0BA4D1B2EB9CC008831CE /* Products */;
+					ProjectRef = C0F0BA4C1B2EB9CC008831CE /* Nimble.xcodeproj */;
+				},
+				{
+					ProductGroup = C0F0BA381B2EB9B8008831CE /* Products */;
+					ProjectRef = C0F0BA371B2EB9B8008831CE /* Quick.xcodeproj */;
+				},
+			);
 			projectRoot = "";
 			targets = (
 				C0997C6F1B1F291D00F32FA0 /* RSSReader */,
@@ -498,12 +622,85 @@
 		};
 /* End PBXProject section */
 
+/* Begin PBXReferenceProxy section */
+		C0F0BA411B2EB9B9008831CE /* Quick.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Quick.framework;
+			remoteRef = C0F0BA401B2EB9B9008831CE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C0F0BA431B2EB9B9008831CE /* Quick-OSXTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Quick-OSXTests.xctest";
+			remoteRef = C0F0BA421B2EB9B9008831CE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C0F0BA451B2EB9B9008831CE /* QuickFocused-OSXTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "QuickFocused-OSXTests.xctest";
+			remoteRef = C0F0BA441B2EB9B9008831CE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C0F0BA471B2EB9B9008831CE /* Quick.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Quick.framework;
+			remoteRef = C0F0BA461B2EB9B9008831CE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C0F0BA491B2EB9B9008831CE /* Quick-iOSTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "Quick-iOSTests.xctest";
+			remoteRef = C0F0BA481B2EB9B9008831CE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C0F0BA4B1B2EB9B9008831CE /* QuickFocused-iOSTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = "QuickFocused-iOSTests.xctest";
+			remoteRef = C0F0BA4A1B2EB9B9008831CE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C0F0BA541B2EB9CC008831CE /* Nimble.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Nimble.framework;
+			remoteRef = C0F0BA531B2EB9CC008831CE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C0F0BA561B2EB9CC008831CE /* NimbleTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = NimbleTests.xctest;
+			remoteRef = C0F0BA551B2EB9CC008831CE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C0F0BA581B2EB9CC008831CE /* Nimble.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Nimble.framework;
+			remoteRef = C0F0BA571B2EB9CC008831CE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+		C0F0BA5A1B2EB9CC008831CE /* NimbleTests.xctest */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.cfbundle;
+			path = NimbleTests.xctest;
+			remoteRef = C0F0BA591B2EB9CC008831CE /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
+/* End PBXReferenceProxy section */
+
 /* Begin PBXResourcesBuildPhase section */
 		C0997C6E1B1F291D00F32FA0 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				C0997C7E1B1F291D00F32FA0 /* Main.storyboard in Resources */,
+				C0997C7E1B1F291D00F32FA0 /* PageMenu.storyboard in Resources */,
 				C03DC5F91B297A2A009763FF /* ArticleTableViewCell.xib in Resources */,
 				C010BB251B294112009BCA13 /* TagList.storyboard in Resources */,
 				C010BB231B29409F009BCA13 /* StockList.storyboard in Resources */,
@@ -511,6 +708,7 @@
 				C0997CA11B2040DC00F32FA0 /* placeholder.png in Resources */,
 				C0997C831B1F291D00F32FA0 /* LaunchScreen.xib in Resources */,
 				C075DDF31B26BB9D00AF2611 /* CustomTableViewCell.xib in Resources */,
+				C0F0BA2C1B2E8987008831CE /* SideMenu.storyboard in Resources */,
 				C03DC5FB1B29E3BE009763FF /* accesstoken.txt in Resources */,
 				C0F0BA221B2E703B008831CE /* ArticleSearch.storyboard in Resources */,
 				C03DC60A1B2AC882009763FF /* ArticleDetail.storyboard in Resources */,
@@ -648,16 +846,19 @@
 				C0997CA51B21740800F32FA0 /* ImageLoader.swift in Sources */,
 				C0997C761B1F291D00F32FA0 /* AppDelegate.swift in Sources */,
 				C0F0BA1A1B2C77ED008831CE /* TagModel.swift in Sources */,
+				C0F0BA321B2E8B41008831CE /* UserRequest.swift in Sources */,
 				C075DE0C1B27DBBB00AF2611 /* BaseModel.swift in Sources */,
 				C075DE071B27D60F00AF2611 /* FeedModel.swift in Sources */,
 				C010BB331B296136009BCA13 /* ArticleEntity.swift in Sources */,
-				C010BB151B29327E009BCA13 /* MainMenuViewController.swift in Sources */,
+				C010BB151B29327E009BCA13 /* PageMenuViewController.swift in Sources */,
 				C0F0BA181B2C7748008831CE /* TagsRequest.swift in Sources */,
+				C0F0BA2E1B2E8997008831CE /* SideMenuViewController.swift in Sources */,
 				C010BB1B1B2932C1009BCA13 /* ArticleDetailViewController.swift in Sources */,
 				C075DE021B26F46400AF2611 /* Article.swift in Sources */,
 				C03DC5FF1B2AA9DB009763FF /* ArticleStocksRequest.swift in Sources */,
 				C0997C791B1F291D00F32FA0 /* RSSReader.xcdatamodeld in Sources */,
 				C075DE0E1B27DBC600AF2611 /* BaseViewController.swift in Sources */,
+				C0F0BA301B2E8AEF008831CE /* UserModel.swift in Sources */,
 				C0997C991B1F2A4B00F32FA0 /* WebViewController.swift in Sources */,
 				C0F0BA201B2E6FF4008831CE /* ArticleSearchViewController.swift in Sources */,
 				C075DDFE1B26EEEE00AF2611 /* QiitaClient.swift in Sources */,
@@ -683,12 +884,12 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		C0997C7C1B1F291D00F32FA0 /* Main.storyboard */ = {
+		C0997C7C1B1F291D00F32FA0 /* PageMenu.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				C0997C7D1B1F291D00F32FA0 /* Base */,
 			);
-			name = Main.storyboard;
+			name = PageMenu.storyboard;
 			path = .;
 			sourceTree = "<group>";
 		};

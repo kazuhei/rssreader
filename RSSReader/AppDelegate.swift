@@ -1,5 +1,6 @@
 import UIKit
 import CoreData
+import MMDrawerController
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -8,7 +9,28 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        // CoreDataからログイン状態を取得する
+        let userDefault = NSUserDefaults.standardUserDefaults()
+        if let accessToken = userDefault.stringForKey("QiitaAccessToken") {
+            // ログインしていなければQiitaにとばす
+            
+        }
+        
+        
+        
+        startAppToFirstController()
+        return true
+    }
+
+    // カスタムスキームで起動した場合
+    func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
+        // codeが付与されているのを確認する
+        
+        // 付与されたcodeを付けてpostしqiitaからaccesstokenを得る
+        
+        // accesstokenを保存してrestart
+        
         return true
     }
 
@@ -34,6 +56,24 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
         self.saveContext()
+    }
+    
+    private func toLoginViewController() {
+        
+    }
+    
+    private func startAppToFirstController() {
+        let pageMenuStoryBoard = UIStoryboard(name: "PageMenu", bundle: nil)
+        let pageMenuViewController = pageMenuStoryBoard.instantiateInitialViewController() as! UIViewController
+        let sideMenuStoryBoard = UIStoryboard(name: "SideMenu", bundle: nil)
+        let sideMenuViewController = sideMenuStoryBoard.instantiateInitialViewController() as! UIViewController
+        
+        let drawerController = MMDrawerController(centerViewController: pageMenuViewController, leftDrawerViewController: sideMenuViewController)
+        drawerController.openDrawerGestureModeMask = .Custom
+        drawerController.closeDrawerGestureModeMask = .TapCenterView | .TapNavigationBar
+        
+        window!.rootViewController = drawerController
+        window!.makeKeyAndVisible()
     }
 
     // MARK: - Core Data stack

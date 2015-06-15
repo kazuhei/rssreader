@@ -6,6 +6,7 @@ target "RSSReader" do
     pod 'SVProgressHUD'
     pod 'PageMenu'
     pod 'SwiftyJSON', '~> 2.2.0'
+    pod 'MMDrawerController', '~> 0.5.7'
 end
 
 target "RSSReaderTests" do
@@ -14,4 +15,5 @@ target "RSSReaderTests" do
     pod 'SVProgressHUD'
     pod 'PageMenu'
     pod 'SwiftyJSON', '~> 2.2.0'
+    pod 'MMDrawerController', '~> 0.5.7'
 end

@@ -53,15 +53,16 @@ class ArticleDetailViewController: BaseViewController, UIWebViewDelegate {
             self.headerView.layoutIfNeeded()
             
             let htmlData = article.body.dataUsingEncoding(NSUTF8StringEncoding)
-            self.contentsView.loadData(htmlData, MIMEType: "text/html", textEncodingName: "utf-8", baseURL: nil)
+            self.contentsView.loadHTMLString(article.body, baseURL: nil)
         }
         ArticleModel.getInstance().getDetail(articleId)
     }
     
     func webViewDidFinishLoad(webView: UIWebView) {
         
-        if let heightString = contentsView.stringByEvaluatingJavaScriptFromString("document.body.scrollHeight") {
+        if let heightString = contentsView.stringByEvaluatingJavaScriptFromString("document.documentElement.scrollHeight") {
             let height = CGFloat(NSString(string: heightString).floatValue)
+            println(height)
             contentsView.addConstraint(
                 NSLayoutConstraint(
                     item: contentsView,
@@ -70,7 +71,7 @@ class ArticleDetailViewController: BaseViewController, UIWebViewDelegate {
                     toItem: nil,
                     attribute: NSLayoutAttribute.Height,
                     multiplier: 1.0,
-                    constant: height + navigationController!.navigationBar.frame.height + headerView.frame.height
+                    constant: height
                 )
             )
         }

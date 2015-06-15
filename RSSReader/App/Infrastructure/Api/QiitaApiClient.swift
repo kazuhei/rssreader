@@ -14,7 +14,7 @@ class QiitaApiClient: BaseClient {
         let url = root + "/" + request.path
         manager.request(request.method, url, parameters: request.params).response {
             req, res, data, connectionError in
-            
+
             if let error = connectionError {
                 println("通信エラーだよ")
             }
@@ -25,8 +25,8 @@ class QiitaApiClient: BaseClient {
                 
             }
             // エラーは全て除外できたものとしてdataを強制開示
-            if let jsonData = data as? NSData {
-                if let response = request.makeResponse(jsonData) {
+            if let nsdata = data as? NSData {
+                if let response = request.makeResponse(nsdata) {
                     callback(response)
                 }
             }
