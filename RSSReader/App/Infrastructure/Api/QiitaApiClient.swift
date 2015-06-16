@@ -1,16 +1,20 @@
 import Foundation
 import Alamofire
+import KeychainAccess
 
 class QiitaApiClient: BaseClient {
     let root = "https://qiita.com/api/v2"
     
     func call<T: BaseRequest>(request: T, callback: (T.BaseResponse) -> Void) {
         var manager = Manager.sharedInstance
-        let path = NSBundle.mainBundle().pathForResource("accesstoken", ofType: "txt")!
-        let accesstoken = String(contentsOfFile: path, encoding: NSUTF8StringEncoding, error: nil)!
-        manager.session.configuration.HTTPAdditionalHeaders = [
-            "Authorization": accesstoken
-        ]
+
+        // ログイン済のときはアクセストークンを追加
+        let keychain = Keychain(service: "edu.self.rssreader")
+        if let accessToken = keychain.get("qiitaAccessToken") {
+            manager.session.configuration.HTTPAdditionalHeaders = [
+                "Authorization": accessToken
+            ]
+        }
         let url = root + "/" + request.path
         manager.request(request.method, url, parameters: request.params).response {
             req, res, data, connectionError in

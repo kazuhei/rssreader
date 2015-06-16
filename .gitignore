@@ -6,3 +6,5 @@ Podfile.lock
 *.xccheckout
 *.xcuserstate
 RSSReader/accesstoken.txt
+RSSReader/client_id.txt
+RSSReader/client_secret.txt

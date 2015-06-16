@@ -7,6 +7,7 @@ target "RSSReader" do
     pod 'PageMenu'
     pod 'SwiftyJSON', '~> 2.2.0'
     pod 'MMDrawerController', '~> 0.5.7'
+    pod 'KeychainAccess', '1.2.1'
 end
 
 target "RSSReaderTests" do
@@ -16,4 +17,5 @@ target "RSSReaderTests" do
     pod 'PageMenu'
     pod 'SwiftyJSON', '~> 2.2.0'
     pod 'MMDrawerController', '~> 0.5.7'
+    pod 'KeychainAccess', '1.2.1'
 end

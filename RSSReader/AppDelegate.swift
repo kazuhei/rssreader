@@ -1,6 +1,7 @@
 import UIKit
 import CoreData
 import MMDrawerController
+import KeychainAccess
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -11,25 +12,39 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
         
         // CoreDataからログイン状態を取得する
-        let userDefault = NSUserDefaults.standardUserDefaults()
-        if let accessToken = userDefault.stringForKey("QiitaAccessToken") {
-            // ログインしていなければQiitaにとばす
-            
+        let keychain = Keychain(service: "edu.self.rssreader")
+        // アクセストークンを保存
+        let path = NSBundle.mainBundle().pathForResource("accesstoken", ofType: "txt")!
+        let localAccessToken = String(contentsOfFile: path, encoding: NSUTF8StringEncoding, error: nil)!
+        keychain.set(localAccessToken, key: "qiitaAccessToken")
+        // アクセストークンを削除
+        // keychain.remove("qiitaAccessToken")
+        if let accessToken = keychain.get("qiitaAccessToken") {
+            println(accessToken)
+            println("ログイン済です")
+            startAppToFirstController()
+        } else {
+            println("ログインできていません")
+            toLoginViewController()
         }
         
-        
-        
-        startAppToFirstController()
         return true
     }
 
     // カスタムスキームで起動した場合
     func application(application: UIApplication, openURL url: NSURL, sourceApplication: String?, annotation: AnyObject?) -> Bool {
+        
         // codeが付与されているのを確認する
+        let urlComponents = NSURLComponents(URL: url, resolvingAgainstBaseURL: false)!
+        let queryDict = urlComponentsToDict(urlComponents)
         
-        // 付与されたcodeを付けてpostしqiitaからaccesstokenを得る
-        
-        // accesstokenを保存してrestart
+        // 付与されたcodeを付けてpostしqiitaからaccesstokenを得り保存してリスタート
+        AuthModel.getInstance().getAccessToken(queryDict["code"]!){
+            authEntity in
+            let keychain = Keychain(service: "edu.self.rssreader")
+            keychain.set(authEntity.token, key: "qiitaAccessToken")
+            self.startAppToFirstController()
+        }
         
         return true
     }
@@ -59,7 +74,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     private func toLoginViewController() {
+        let loginStoryBoard = UIStoryboard(name: "Login", bundle: nil)
+        let loginViewController = loginStoryBoard.instantiateInitialViewController() as! UIViewController
         
+        window!.rootViewController = loginViewController
+        window!.makeKeyAndVisible()
     }
     
     private func startAppToFirstController() {
@@ -74,6 +93,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         window!.rootViewController = drawerController
         window!.makeKeyAndVisible()
+    }
+    
+    private func urlComponentsToDict(comp: NSURLComponents) -> Dictionary<String, String> {
+        var dict: Dictionary<String, String> = Dictionary<String, String>()
+        
+        for (var i = 0; i < comp.queryItems?.count; i++) {
+            let item = comp.queryItems?[i] as! NSURLQueryItem
+            dict[item.name] = item.value
+        }
+        
+        return dict
     }
 
     // MARK: - Core Data stack
