@@ -160,6 +160,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="mainscreen" destination="eBF-VB-pyM" id="hHW-RI-Rmm"/>
+                        <outlet property="view" destination="y4j-LO-TBr" id="EEC-J2-N8h"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="89e-7k-HWq" userLabel="First Responder" sceneMemberID="firstResponder"/>

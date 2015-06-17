@@ -17,7 +17,7 @@ class ArticleListViewController: PageViewController, UITableViewDataSource, UITa
     override func viewDidLoad() {
         articleTableView.delegate = self
         articleTableView.dataSource = self
-        let nib: UINib = UINib(nibName: "ArticleTableViewCell", bundle: nil)
+        let nib: UINib = UINib(nibName: "ArticleTableViewCell", bundle: NSBundle(forClass: self.classForCoder))
         self.articleTableView.registerNib(nib, forCellReuseIdentifier: "ArticleCell")
     }
     

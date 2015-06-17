@@ -15,11 +15,11 @@ class PageMenuViewController: BaseViewController, CAPSPageMenuDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         // 各ページのViewcontrollerを用意する
-        let articleListStoryboard = UIStoryboard(name: "ArticleList", bundle: nil)
+        let articleListStoryboard = UIStoryboard(name: "ArticleList", bundle: NSBundle(forClass: self.classForCoder))
         let articleListViewController = articleListStoryboard.instantiateInitialViewController() as! UIViewController
-        let stockListStoryboard = UIStoryboard(name: "StockList", bundle: nil)
+        let stockListStoryboard = UIStoryboard(name: "StockList", bundle: NSBundle(forClass: self.classForCoder))
         let stockListViewController = stockListStoryboard.instantiateInitialViewController() as! UIViewController
-        let tagListStoryboard = UIStoryboard(name: "TagList", bundle: nil)
+        let tagListStoryboard = UIStoryboard(name: "TagList", bundle: NSBundle(forClass: self.classForCoder))
         let tagListViewController = tagListStoryboard.instantiateInitialViewController() as! UIViewController
         controllerArray = [articleListViewController, stockListViewController, tagListViewController]
         
@@ -36,7 +36,6 @@ class PageMenuViewController: BaseViewController, CAPSPageMenuDelegate {
         ]
         
         pageMenu = CAPSPageMenu(viewControllers: controllerArray, frame: CGRectMake(0.0, 0.0, self.mainscreen.frame.width, self.mainscreen.frame.height), pageMenuOptions: menuParams)
-        
         pageMenu!.delegate = self
         self.mainscreen.addSubview(pageMenu!.view)
     }
