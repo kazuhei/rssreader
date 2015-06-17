@@ -8,3 +8,4 @@ Podfile.lock
 RSSReader/accesstoken.txt
 RSSReader/client_id.txt
 RSSReader/client_secret.txt
+*.DS_Store
