@@ -5,3 +5,4 @@
 [submodule "RSSReader/Vendor/Nimble"]
 	path = RSSReader/Vendor/Nimble
 	url = https://github.com/Quick/Nimble.git
+	ignore = dirty
