@@ -2,7 +2,8 @@
 import Foundation
 import UIKit
 
-class ArticleSearchViewController: BaseViewController, UITableViewDataSource, UITableViewDelegate {
+// ViewControllerのライフサイクルについてはメイン部分に記述する
+class ArticleSearchViewController: BaseViewController {
     
     var articles: [ArticleEntity] = []
     var keyword: String = ""
@@ -11,8 +12,12 @@ class ArticleSearchViewController: BaseViewController, UITableViewDataSource, UI
     
     override func viewDidLoad() {
         self.title = keyword + "の検索結果"
+        
+        // ここの部分だけtableViewの記述が入ってしまっている
+        // そもそもdelegateとdetaSourceってstoryboardでも定義できるのでそちらのほうが良い？
         articleTableView.delegate = self
         articleTableView.dataSource = self
+        
         let nib: UINib = UINib(nibName: "ArticleTableViewCell", bundle: nil)
         self.articleTableView.registerNib(nib, forCellReuseIdentifier: "ArticleCell")
     }
@@ -25,6 +30,15 @@ class ArticleSearchViewController: BaseViewController, UITableViewDataSource, UI
         }
         ArticleModel.getInstance().get(keyword, page: 1)
     }
+    
+    func refresh() {
+        ArticleModel.getInstance().get(keyword, page: 1)
+    }
+}
+
+
+// tableViewControllerとしての挙動はextensionを使って分けて記述する
+extension ArticleSearchViewController: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return articles.count
@@ -54,7 +68,4 @@ class ArticleSearchViewController: BaseViewController, UITableViewDataSource, UI
         self.navigationController?.pushViewController(articleDetailViewController, animated: true)
     }
     
-    func refresh() {
-        ArticleModel.getInstance().get(keyword, page: 1)
-    }
 }
