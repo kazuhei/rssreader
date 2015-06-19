@@ -1,12 +1,14 @@
 
 import Foundation
 import UIKit
+import RxSwift
+import SVProgressHUD
 
 class ArticleListViewController: PageViewController, UITableViewDataSource, UITableViewDelegate {
     
     var articles: [ArticleEntity] = []
     
-    @IBOutlet weak var articleTableView: UITableView!
+    @IBOutlet weak var articleTableView: UITableView?
     
     // navigationBarの設定
     override func navigationRightBarButtons() -> [UIBarButtonItem] {
@@ -15,19 +17,24 @@ class ArticleListViewController: PageViewController, UITableViewDataSource, UITa
     }
     
     override func viewDidLoad() {
-        articleTableView.delegate = self
-        articleTableView.dataSource = self
+        super.viewDidLoad()
+        // viewDidLoadの段階ではstoryboardからのview生成は終了しているので強制開示
+        articleTableView!.delegate = self
+        articleTableView!.dataSource = self
         let nib: UINib = UINib(nibName: "ArticleTableViewCell", bundle: NSBundle(forClass: self.classForCoder))
-        self.articleTableView.registerNib(nib, forCellReuseIdentifier: "ArticleCell")
+        self.articleTableView!.registerNib(nib, forCellReuseIdentifier: "ArticleCell")
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        self.addModelObserve(ArticleModel.getInstance(), forKeyPath: "articles", options: .New, context: nil){
-            self.articles = ArticleModel.getInstance().articles
-            self.articleTableView.reloadData()
+        
+        refresh()
+    }
+    
+    override func viewWillDisappear(animated: Bool) {
+        for subscription in subscriptions {
+            subscription.dispose()
         }
-        ArticleModel.getInstance().get(1)
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -59,6 +66,19 @@ class ArticleListViewController: PageViewController, UITableViewDataSource, UITa
     }
     
     func refresh() {
-        ArticleModel.getInstance().get(1)
+        SVProgressHUD.show()
+        subscriptions.append(ArticleModel.getInstance().get(1) >- subscribe(next:
+            {
+                articles in
+                self.articles = articles
+                self.articleTableView?.reloadData()
+            }, error: {
+                error in
+                println(error)
+                SVProgressHUD.showErrorWithStatus("ロード失敗")
+            }, completed: {
+                SVProgressHUD.dismiss()
+            }
+        ))
     }
 }

@@ -1,10 +1,9 @@
 import Foundation
+import RxSwift
 
 class TagModel: BaseModel {
     private static let singleton = TagModel()
-    
-    // KVO用のプロパティ
-    dynamic var tags: [TagEntity] = []
+    private let client = QiitaApiClient()
     
     let perPage: Int = 100
     
@@ -14,11 +13,19 @@ class TagModel: BaseModel {
         return singleton
     }
     
-    func get(page: Int) {
-        let client = QiitaApiClient()
-        client.call(QiitaApiClient.TagsRequest(page: page, perPage: perPage)){
-            data in
-            self.tags = data
-        }
+    func get(page: Int) -> Observable<[TagEntity]> {
+        let tags: Variable<[TagEntity]> = Variable([])
+        client.call(QiitaApiClient.TagsRequest(page: page, perPage: perPage),
+            callback: {
+                data in
+                tags.next(data)
+                tags.on(Event.Completed)
+            }, errorCallback: {
+                (error) in
+                tags.on(Event.Error(error))
+            }
+        )
+        
+        return tags
     }
 }

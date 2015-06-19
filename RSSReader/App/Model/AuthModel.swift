@@ -3,6 +3,7 @@ import RxSwift
 
 class AuthModel: BaseModel {
     private static let singleton = AuthModel()
+    let client = QiitaApiClient()
     
     private override init() {}
     
@@ -11,11 +12,11 @@ class AuthModel: BaseModel {
     }
     
     func getAccessToken(code: String, callback: (QiitaApiClient.AuthRequest.BaseResponse) -> ()) {
-        let client = QiitaApiClient()
-        client.call(QiitaApiClient.AuthRequest(code: code)){
+        client.call(QiitaApiClient.AuthRequest(code: code), callback: {
             data in
             println(data)
             callback(data)
-        }
+        }, errorCallback: {(error) in
+        })
     }
 }

@@ -1,6 +1,8 @@
 
 import Foundation
 import UIKit
+import RxSwift
+import SVProgressHUD
 
 class TagListViewController: PageViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
@@ -8,13 +10,27 @@ class TagListViewController: PageViewController, UICollectionViewDelegate, UICol
     var tags: [TagEntity] = []
     
     override func viewDidLoad() {
+        super.viewDidLoad()
         tagListView.delegate = self
         tagListView.dataSource = self
-        self.addModelObserve(TagModel.getInstance(), forKeyPath: "tags", options: .New, context: nil){
-            self.tags = TagModel.getInstance().tags
-            self.tagListView.reloadData()
-        }
-        TagModel.getInstance().get(100)
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        SVProgressHUD.show()
+        subscriptions.append(TagModel.getInstance().get(100) >- subscribe(next:
+            {
+                tags in
+                self.tags = tags
+                self.tagListView.reloadData()
+            }, error: {
+                error in
+                println(error)
+                SVProgressHUD.showErrorWithStatus("ロード失敗")
+            }, completed: {
+                SVProgressHUD.dismiss()
+            }
+        ))
     }
     
     func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
