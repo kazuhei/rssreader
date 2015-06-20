@@ -15,16 +15,15 @@ class SideMenuViewController: BaseViewController, UITableViewDelegate, UITableVi
     override func viewDidLoad() {
         menuTableView.delegate = self
         menuTableView.dataSource = self
-        UserModel.getInstance().observableUser
-        >- subscribeNext {
-                user in
-                self.configureProfile(user)
-        }
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        UserModel.getInstance().get("kazuhei0108")
+        subscriptions.append(UserModel.getInstance().get("kazuhei0108") >- filter { userArray in userArray.count == 1 }
+        >- subscribeNext {
+            user in
+            self.configureProfile(user[0])
+        })
     }
     
     private func configureProfile(user: UserEntity) {

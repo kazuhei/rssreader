@@ -5,7 +5,7 @@ import KeychainAccess
 class QiitaApiClient: BaseClient {
     let root = "https://qiita.com/api/v2"
     
-    func call<T: BaseRequest>(request: T, callback: (T.BaseResponse) -> Void) {
+    func call<T: BaseRequest>(request: T, callback: (T.BaseResponse) -> Void, errorCallback: (error: NSError) -> ()) {
         var manager = Manager.sharedInstance
 
         // ログイン済のときはアクセストークンを追加
@@ -20,14 +20,20 @@ class QiitaApiClient: BaseClient {
             req, res, data, connectionError in
 
             if let error = connectionError {
-                println("通信エラーだよ")
+                errorCallback(error: NSError(domain: "connection error", code: 0, userInfo: nil))
+                return
             }
             
-            let statusCode = res?.statusCode
-            if statusCode != 200 {
-                println("エラー応答だよ")
-                
+            if let httpResponse = res {
+                if httpResponse.statusCode != 200 {
+                    errorCallback(error: NSError(domain: "error response", code: httpResponse.statusCode, userInfo: nil))
+                    return
+                }
+            } else {
+                errorCallback(error: NSError(domain: "unexpected error", code: 0, userInfo: nil))
+                return
             }
+            
             // エラーは全て除外できたものとしてdataを強制開示
             if let nsdata = data as? NSData {
                 if let response = request.makeResponse(nsdata) {

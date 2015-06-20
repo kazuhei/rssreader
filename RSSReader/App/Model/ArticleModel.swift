@@ -1,12 +1,9 @@
 import Foundation
+import RxSwift
 
 class ArticleModel: BaseModel {
     private static let singleton = ArticleModel()
-    
-    // KVO用のプロパティ
-    dynamic var articles: [ArticleEntity] = []
-    dynamic var stocks: [ArticleEntity] = []
-    dynamic var singleArticle: ArticleEntity? = nil
+    private let client = QiitaApiClient()
     
     let perPage: Int = 30
     
@@ -16,35 +13,67 @@ class ArticleModel: BaseModel {
         return singleton
     }
     
-    func get(page: Int) {
-        let client = QiitaApiClient()
-        client.call(QiitaApiClient.ArticlesRequest(page: page, perPage: perPage)){
-            data in
-            self.articles = data
-        }
+    func get(page: Int) -> Observable<[ArticleEntity]> {
+        let articles: Variable<[ArticleEntity]> = Variable([])
+        client.call(QiitaApiClient.ArticlesRequest(page: page, perPage: perPage),
+            callback: {
+                data in
+                articles.next(data)
+                articles.on(Event.Completed)
+            }, errorCallback: {
+                (error) in
+                articles.on(Event.Error(error))
+            }
+        )
+        
+        return articles
     }
     
-    func get(keyword: String, page: Int) {
-        let client = QiitaApiClient()
-        client.call(QiitaApiClient.ArticlesRequest(keyword: keyword, page: page, perPage: perPage)){
-            data in
-            self.articles = data
-        }
+    func get(keyword: String, page: Int) -> Observable<[ArticleEntity]> {
+        let articles: Variable<[ArticleEntity]> = Variable([])
+        client.call(QiitaApiClient.ArticlesRequest(keyword: keyword, page: page, perPage: perPage),
+            callback: {
+                data in
+                articles.next(data)
+                articles.on(Event.Completed)
+            }, errorCallback: {
+                (error) in
+                articles.on(Event.Error(error))
+            }
+        )
+        
+        return articles
     }
     
-    func getStocks(page: Int) {
-        let client = QiitaApiClient()
-        client.call(QiitaApiClient.ArticleStocksRequest(userId: "kazuhei0108", page: page, perPage: perPage)){
-            data in
-            self.stocks = data
-        }
+    func getStocks(page: Int) -> Observable<[ArticleEntity]> {
+        let stocks: Variable<[ArticleEntity]> = Variable([])
+        client.call(QiitaApiClient.ArticleStocksRequest(userId: "kazuhei0108", page: page, perPage: perPage),
+            callback: {
+                data in
+                stocks.next(data)
+                stocks.on(Event.Completed)
+            }, errorCallback: {
+                (error) in
+                stocks.on(Event.Error(error))
+            }
+        )
+        
+        return stocks
     }
     
-    func getDetail(articleId: String) {
-        let client = QiitaApiClient()
-        client.call(QiitaApiClient.ArticleDetailRequest(articleId: articleId)) {
-            article in
-            self.singleArticle = article
-        }
+    func getDetail(articleId: String) -> Observable<[ArticleEntity]> {
+        let articles: Variable<[ArticleEntity]> = Variable([])
+        client.call(QiitaApiClient.ArticleDetailRequest(articleId: articleId),
+            callback: {
+                data in
+                articles.next([data])
+                articles.on(Event.Completed)
+            }, errorCallback: {
+                (error) in
+                articles.on(Event.Error(error))
+            }
+        )
+        
+        return articles
     }
 }

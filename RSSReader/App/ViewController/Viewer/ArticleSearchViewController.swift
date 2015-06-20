@@ -1,6 +1,8 @@
 
 import Foundation
 import UIKit
+import RxSwift
+import SVProgressHUD
 
 // ViewControllerのライフサイクルについてはメイン部分に記述する
 class ArticleSearchViewController: BaseViewController {
@@ -24,15 +26,25 @@ class ArticleSearchViewController: BaseViewController {
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        self.addModelObserve(ArticleModel.getInstance(), forKeyPath: "articles", options: .New, context: nil){
-            self.articles = ArticleModel.getInstance().articles
-            self.articleTableView.reloadData()
-        }
-        ArticleModel.getInstance().get(keyword, page: 1)
+        
+        refresh()
     }
     
     func refresh() {
-        ArticleModel.getInstance().get(keyword, page: 1)
+        SVProgressHUD.show()
+        subscriptions.append(ArticleModel.getInstance().get(keyword, page: 1) >- subscribe(next:
+            {
+                articles in
+                self.articles = articles
+                self.articleTableView?.reloadData()
+            }, error: {
+                error in
+                println(error)
+                SVProgressHUD.showErrorWithStatus("ロード失敗")
+            }, completed: {
+                SVProgressHUD.dismiss()
+            }
+            ))
     }
 }
 
@@ -67,5 +79,4 @@ extension ArticleSearchViewController: UITableViewDataSource, UITableViewDelegat
         articleDetailViewController.articleId = articles[indexPath.row].id
         self.navigationController?.pushViewController(articleDetailViewController, animated: true)
     }
-    
 }

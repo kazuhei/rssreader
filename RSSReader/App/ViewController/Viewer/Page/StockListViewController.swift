@@ -1,12 +1,14 @@
 
 import Foundation
 import UIKit
+import RxSwift
+import SVProgressHUD
 
 class StockListViewController: PageViewController, UITableViewDataSource, UITableViewDelegate {
     
     var articles: [ArticleEntity] = []
     
-    @IBOutlet weak var stockTableView: UITableView!
+    @IBOutlet weak var stockTableView: UITableView?
     
     override func navigationRightBarButtons() -> [UIBarButtonItem] {
         let refreshButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: "refresh")
@@ -14,19 +16,16 @@ class StockListViewController: PageViewController, UITableViewDataSource, UITabl
     }
     
     override func viewDidLoad() {
-        stockTableView.delegate = self
-        stockTableView.dataSource = self
+        stockTableView!.delegate = self
+        stockTableView!.dataSource = self
         let nib: UINib = UINib(nibName: "ArticleTableViewCell", bundle: nil)
-        self.stockTableView.registerNib(nib, forCellReuseIdentifier: "ArticleCell")
+        self.stockTableView!.registerNib(nib, forCellReuseIdentifier: "ArticleCell")
     }
     
     override func viewWillAppear(animated: Bool) {
         super.viewWillAppear(animated)
-        self.addModelObserve(ArticleModel.getInstance(), forKeyPath: "stocks", options: .New, context: nil){
-            self.articles = ArticleModel.getInstance().stocks
-            self.stockTableView.reloadData()
-        }
-        ArticleModel.getInstance().getStocks(1)
+     
+        refresh()
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -58,6 +57,19 @@ class StockListViewController: PageViewController, UITableViewDataSource, UITabl
     }
     
     func refresh() {
-        ArticleModel.getInstance().getStocks(1)
+        SVProgressHUD.show()
+        subscriptions.append(ArticleModel.getInstance().getStocks(1) >- subscribe(next:
+            {
+                articles in
+                self.articles = articles
+                self.stockTableView?.reloadData()
+            }, error: {
+                error in
+                println(error)
+                SVProgressHUD.showErrorWithStatus("ロード失敗")
+            }, completed: {
+                SVProgressHUD.dismiss()
+            }
+        ))
     }
 }
