@@ -12,7 +12,6 @@ class ArticleTableViewCell: UITableViewCell, BaseArticleTableViewCell {
     @IBOutlet weak var commentCountLabel: UILabel!
     @IBOutlet weak var commentIcon: UIImageView!
     
-    
     func getHeight(article: ArticleEntity, width: CGFloat) -> CGFloat {
         // そのままだとstoryboard上のサイズになってしまっているので、横幅を設定してlayoutsubviewsを呼ばせることによりcellを正しい形にする。
         self.bounds.size.width = width

@@ -16,8 +16,13 @@ class QiitaApiClient: BaseClient {
             ]
         }
         let url = root + "/" + request.path
-        manager.request(request.method, url, parameters: request.params).response {
+        let encodedUrl = url.stringByAddingPercentEncodingWithAllowedCharacters(NSCharacterSet.URLQueryAllowedCharacterSet())!
+        manager.request(request.method, encodedUrl, parameters: request.params).response {
             req, res, data, connectionError in
+            
+            // デバッグ用
+//            println(req)
+//            println(res)
 
             if let error = connectionError {
                 errorCallback(error: NSError(domain: "connection error", code: 0, userInfo: nil))
@@ -25,7 +30,7 @@ class QiitaApiClient: BaseClient {
             }
             
             if let httpResponse = res {
-                if httpResponse.statusCode != 200 {
+                if httpResponse.statusCode < 200 || httpResponse.statusCode >= 300 {
                     errorCallback(error: NSError(domain: "error response", code: httpResponse.statusCode, userInfo: nil))
                     return
                 }

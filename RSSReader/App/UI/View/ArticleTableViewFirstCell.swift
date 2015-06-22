@@ -39,7 +39,7 @@ class ArticleTableViewFirstCell: UITableViewCell, BaseArticleTableViewCell {
         ]
         let summayTextSize = NSString(string: summary).boundingRectWithSize(CGSizeMake(summaryLabel.frame.width, 600), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: summaryAttributeDict, context: nil)
         
-        return max(textSize.height + summayTextSize.height + 68, 100)
+        return max(textSize.height + summayTextSize.height + 64, 110)
     }
     
     func configure(article: ArticleEntity) {

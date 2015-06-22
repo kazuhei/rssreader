@@ -7,7 +7,7 @@ import SVProgressHUD
 class ArticleListViewController: PageViewController, UITableViewDataSource, UITableViewDelegate {
     
     var articles: [ArticleEntity] = []
-    var contentOffset : Variable<CGPoint> = Variable(CGPoint())
+    private var contentOffset : Variable<CGPoint> = Variable(CGPoint())
     var pageIndex: Int = 1
     
     @IBOutlet weak var articleTableView: UITableView?
@@ -54,12 +54,6 @@ class ArticleListViewController: PageViewController, UITableViewDataSource, UITa
         super.viewWillAppear(animated)
         
         refresh()
-    }
-    
-    override func viewWillDisappear(animated: Bool) {
-        for subscription in subscriptions {
-            subscription.dispose()
-        }
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {

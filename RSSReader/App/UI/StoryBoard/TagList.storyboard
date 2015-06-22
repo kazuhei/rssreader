@@ -2,6 +2,7 @@
 <document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="msf-1W-xm0">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--タグ一覧-->
@@ -16,66 +17,54 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="JIX-3G-Izk" userLabel="tagListView">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" translatesAutoresizingMaskIntoConstraints="NO" id="8th-rH-znx" userLabel="tagListView">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="1" minimumInteritemSpacing="1" id="nSC-am-wqm">
-                                    <size key="itemSize" width="80" height="80"/>
-                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
-                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
-                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                </collectionViewFlowLayout>
-                                <cells>
-                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="TagCell" id="req-jA-Cjd" customClass="TagCell" customModule="RSSReader" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="50" height="50"/>
+                                <prototypes>
+                                    <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="TagCell" id="PnG-JS-Fro" customClass="TagCell" customModule="RSSReader" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="600" height="44"/>
                                         <autoresizingMask key="autoresizingMask"/>
-                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
-                                            <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="PnG-JS-Fro" id="7WR-rx-ZTr">
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="gNS-4F-IL1" userLabel="tagIcon">
-                                                    <rect key="frame" x="0.0" y="0.0" width="80" height="80"/>
-                                                </imageView>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="characterWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="oKN-jU-2GG" userLabel="tagLabel">
-                                                    <rect key="frame" x="4" y="32" width="72" height="16"/>
-                                                    <fontDescription key="fontDescription" name="HelveticaNeue" family="Helvetica Neue" pointSize="13"/>
-                                                    <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="fE7-pr-Ynf" userLabel="tagLabel">
+                                                    <rect key="frame" x="8" y="8" width="42" height="21"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
                                                     <nil key="highlightedColor"/>
                                                 </label>
+                                                <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="9GH-SL-utK">
+                                                    <rect key="frame" x="543" y="8" width="51" height="31"/>
+                                                    <connections>
+                                                        <action selector="followingSwitchOnChange:forEvent:" destination="msf-1W-xm0" eventType="valueChanged" id="su8-t9-syM"/>
+                                                    </connections>
+                                                </switch>
                                             </subviews>
-                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
-                                        </view>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                        <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="gNS-4F-IL1" secondAttribute="trailing" id="0ig-6y-LwQ"/>
-                                            <constraint firstItem="oKN-jU-2GG" firstAttribute="leading" secondItem="req-jA-Cjd" secondAttribute="leading" constant="4" id="3XW-Fc-x5N"/>
-                                            <constraint firstAttribute="bottom" secondItem="gNS-4F-IL1" secondAttribute="bottom" id="6Tu-TU-P90"/>
-                                            <constraint firstAttribute="centerX" secondItem="oKN-jU-2GG" secondAttribute="centerX" id="9ZI-KE-4O4"/>
-                                            <constraint firstItem="gNS-4F-IL1" firstAttribute="top" secondItem="req-jA-Cjd" secondAttribute="top" id="Kca-lh-x9o"/>
-                                            <constraint firstItem="gNS-4F-IL1" firstAttribute="leading" secondItem="req-jA-Cjd" secondAttribute="leading" id="URe-rk-1Yz"/>
-                                            <constraint firstAttribute="trailing" secondItem="oKN-jU-2GG" secondAttribute="trailing" constant="4" id="VkZ-wa-Xqe"/>
-                                            <constraint firstAttribute="centerY" secondItem="oKN-jU-2GG" secondAttribute="centerY" id="Xj5-A5-c6s"/>
-                                        </constraints>
+                                            <constraints>
+                                                <constraint firstAttribute="trailingMargin" secondItem="9GH-SL-utK" secondAttribute="trailing" id="8FY-re-trD"/>
+                                                <constraint firstItem="fE7-pr-Ynf" firstAttribute="leading" secondItem="7WR-rx-ZTr" secondAttribute="leadingMargin" id="HUw-bJ-gHF"/>
+                                                <constraint firstItem="9GH-SL-utK" firstAttribute="top" secondItem="7WR-rx-ZTr" secondAttribute="topMargin" id="YBM-Go-GSk"/>
+                                                <constraint firstItem="fE7-pr-Ynf" firstAttribute="top" secondItem="7WR-rx-ZTr" secondAttribute="topMargin" id="eRL-YZ-CaY"/>
+                                            </constraints>
+                                        </tableViewCellContentView>
                                         <connections>
-                                            <outlet property="tagIcon" destination="gNS-4F-IL1" id="Dq2-b6-9hD"/>
-                                            <outlet property="tagLabel" destination="oKN-jU-2GG" id="CnC-QY-AhQ"/>
+                                            <outlet property="followingSwitch" destination="9GH-SL-utK" id="uRv-Cl-EzE"/>
+                                            <outlet property="tagLabel" destination="fE7-pr-Ynf" id="HjE-OG-5kX"/>
                                         </connections>
-                                    </collectionViewCell>
-                                </cells>
-                            </collectionView>
+                                    </tableViewCell>
+                                </prototypes>
+                            </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="trailing" secondItem="JIX-3G-Izk" secondAttribute="trailing" id="55Q-3n-qZb"/>
-                            <constraint firstItem="JIX-3G-Izk" firstAttribute="top" secondItem="frE-AG-MuT" secondAttribute="top" id="JpQ-qu-TXX"/>
-                            <constraint firstAttribute="height" secondItem="JIX-3G-Izk" secondAttribute="height" id="RIO-kK-LKM"/>
-                            <constraint firstItem="asI-0g-9bm" firstAttribute="top" secondItem="JIX-3G-Izk" secondAttribute="bottom" id="TKQ-Ha-m48"/>
-                            <constraint firstAttribute="width" secondItem="JIX-3G-Izk" secondAttribute="width" id="b77-FN-1te"/>
-                            <constraint firstItem="JIX-3G-Izk" firstAttribute="leading" secondItem="frE-AG-MuT" secondAttribute="leading" id="iur-2f-vBY"/>
+                            <constraint firstItem="8th-rH-znx" firstAttribute="top" secondItem="frE-AG-MuT" secondAttribute="top" id="2p7-N0-8DK"/>
+                            <constraint firstItem="8th-rH-znx" firstAttribute="height" secondItem="frE-AG-MuT" secondAttribute="height" id="CJJ-N6-2Dw"/>
+                            <constraint firstItem="8th-rH-znx" firstAttribute="leading" secondItem="frE-AG-MuT" secondAttribute="leading" id="Fjy-Rv-kDr"/>
+                            <constraint firstItem="8th-rH-znx" firstAttribute="width" secondItem="frE-AG-MuT" secondAttribute="width" id="Lu8-I8-QsK"/>
                         </constraints>
                     </view>
                     <connections>
-                        <outlet property="tagListView" destination="JIX-3G-Izk" id="Ylg-p8-Lz7"/>
+                        <outlet property="tagListView" destination="8th-rH-znx" id="4uI-Qd-2uQ"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="O5v-Jn-izt" userLabel="First Responder" sceneMemberID="firstResponder"/>

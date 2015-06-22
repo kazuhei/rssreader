@@ -28,4 +28,55 @@ class TagModel: BaseModel {
         
         return tags
     }
+    
+    func isFollowing(tagId: String) -> Observable<Bool> {
+        let isFollowing: Variable<Bool> = Variable(false)
+        
+        client.call(QiitaApiClient.TagIsFollowingRequest(tagId: tagId),
+            callback: {
+                data in
+                isFollowing.next(true)
+                isFollowing.on(Event.Completed)
+            }, errorCallback: {
+                (error) in
+                isFollowing.next(false)
+            }
+        )
+        
+        return isFollowing
+    }
+    
+    func follow(tagId: String) -> Observable<Bool> {
+        let isFollowing: Variable<Bool> = Variable(false)
+        
+        client.call(QiitaApiClient.TagPutFollowingRequest(tagId: tagId),
+            callback: {
+                data in
+                isFollowing.next(true)
+                isFollowing.on(Event.Completed)
+            }, errorCallback: {
+                (error) in
+                isFollowing.on(Event.Error(error))
+            }
+        )
+        
+        return isFollowing
+    }
+    
+    func unFollow(tagId: String) -> Observable<Bool> {
+        let isFollowing: Variable<Bool> = Variable(false)
+        
+        client.call(QiitaApiClient.TagDeleteFollowingRequest(tagId: tagId),
+            callback: {
+                data in
+                isFollowing.next(true)
+                isFollowing.on(Event.Completed)
+            }, errorCallback: {
+                (error) in
+                isFollowing.on(Event.Error(error))
+            }
+        )
+        
+        return isFollowing
+    }
 }
