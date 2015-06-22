@@ -88,7 +88,6 @@ class ArticleDetailViewController: BaseViewController, UIWebViewDelegate {
         self.headerView.setNeedsLayout()
         self.headerView.layoutIfNeeded()
         
-        let htmlData = article.body.dataUsingEncoding(NSUTF8StringEncoding)
-        self.contentsView.loadHTMLString(article.body, baseURL: nil)
+        self.contentsView.loadHTMLString(article.renderdBody, baseURL: nil)
     }
 }

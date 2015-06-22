@@ -6,6 +6,7 @@ class ArticleEntity: NSObject {
     let id: String
     let title: String
     let body: String
+    let renderdBody: String
     let createdAt: String
     let tags: [SimpleTagEntity]?
     let user: UserEntity?
@@ -13,7 +14,8 @@ class ArticleEntity: NSObject {
     init(articleData: JSON) {
         self.id = articleData["id"].string!
         self.title = articleData["title"].string ?? "無題"
-        self.body = articleData["rendered_body"].string ?? ""
+        self.body = articleData["body"].string ?? ""
+        self.renderdBody = articleData["rendered_body"].string ?? ""
         self.createdAt = articleData["created_at"].string!
         var tagArray: [SimpleTagEntity] = []
         for (index, tagData) in articleData["tags"] {

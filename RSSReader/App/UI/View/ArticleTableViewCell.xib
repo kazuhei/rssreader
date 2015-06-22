@@ -111,7 +111,7 @@
             <connections>
                 <outlet property="commentCountLabel" destination="n6q-6J-lch" id="xEF-3e-3hn"/>
                 <outlet property="commentIcon" destination="0o2-T0-V8v" id="H7S-pA-AP8"/>
-                <outlet property="profileImage" destination="KrL-4s-uop" id="xup-P5-MCo"/>
+                <outlet property="profileImage" destination="KrL-4s-uop" id="PU9-r0-qzS"/>
                 <outlet property="stockCountLabel" destination="wGf-0V-A2j" id="r9f-R8-gl8"/>
                 <outlet property="stockIcon" destination="VuH-TW-Dgp" id="oIR-Mh-J59"/>
                 <outlet property="tagListView" destination="QeY-W6-ty6" id="BOE-kS-YVm"/>

@@ -1,20 +1,20 @@
 import Foundation
 import UIKit
 
-class ArticleTableViewCell: UITableViewCell, BaseArticleTableViewCell {
+class ArticleTableViewFirstCell: UITableViewCell, BaseArticleTableViewCell {
+    
     
     @IBOutlet weak var profileImage: UIImageView!
     @IBOutlet weak var userNameLabel: UILabel!
     @IBOutlet weak var titleLabel: UILabel!
+    @IBOutlet weak var summaryLabel: UILabel!
     @IBOutlet weak var tagListView: UIView!
     @IBOutlet weak var stockIcon: UIImageView!
     @IBOutlet weak var stockCountLabel: UILabel!
-    @IBOutlet weak var commentCountLabel: UILabel!
     @IBOutlet weak var commentIcon: UIImageView!
-    
+    @IBOutlet weak var commentCountLabel: UILabel!
     
     func getHeight(article: ArticleEntity, width: CGFloat) -> CGFloat {
-        // そのままだとstoryboard上のサイズになってしまっているので、横幅を設定してlayoutsubviewsを呼ばせることによりcellを正しい形にする。
         self.bounds.size.width = width
         setNeedsLayout()
         layoutIfNeeded()
@@ -29,12 +29,23 @@ class ArticleTableViewCell: UITableViewCell, BaseArticleTableViewCell {
         ]
         let textSize = NSString(string: text).boundingRectWithSize(CGSizeMake(titleLabel.frame.width, 600), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: attributeDict, context: nil)
         
-        return max(textSize.height + 64, 84)
+        // 100文字で切る
+        let summary = article.body.substringToIndex(advance(article.body.startIndex, 100))
+        let summaryParagraphStyle = NSMutableParagraphStyle()
+        summaryParagraphStyle.lineBreakMode = summaryLabel.lineBreakMode
+        let summaryAttributeDict = [
+            NSFontAttributeName: summaryLabel.font,
+            NSParagraphStyleAttributeName: paragraphStyle
+        ]
+        let summayTextSize = NSString(string: summary).boundingRectWithSize(CGSizeMake(summaryLabel.frame.width, 600), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: summaryAttributeDict, context: nil)
+        
+        return max(textSize.height + summayTextSize.height + 68, 100)
     }
     
     func configure(article: ArticleEntity) {
         // Cellに値を設定する.
         titleLabel.text = article.title
+        summaryLabel.text = article.body.substringToIndex(advance(article.body.startIndex, 100))
         
         profileImage.image = ImageLoader.sharedInstance.getPlaceHolder(profileImage.frame.size)
         
@@ -83,6 +94,6 @@ class ArticleTableViewCell: UITableViewCell, BaseArticleTableViewCell {
         stockCountLabel.text = String(arc4random() % 1000)
         commentIcon.image = ImageLoader.sharedInstance.commentIcon(commentIcon.frame.size)
         commentCountLabel.text = String(arc4random() % 1000)
-    
+        
     }
 }
