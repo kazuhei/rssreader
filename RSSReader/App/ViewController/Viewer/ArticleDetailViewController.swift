@@ -73,7 +73,13 @@ class ArticleDetailViewController: BaseViewController, UIWebViewDelegate {
             self.userProfileImage.image = ImageLoader.sharedInstance.get(NSURL(string: user.profileImageUrl)!, size: self.userProfileImage.frame.size)
             self.userNameLabel.text = user.id
         }
-        self.createdAtLabel.text = article.createdAt.substringToIndex(advance(article.createdAt.startIndex, 10))
+        
+        if let createdAt = article.createdAt {
+            let formatter = NSDateFormatter()
+            formatter.dateFormat = "yy年MM月dd日 H時mm分"
+            self.createdAtLabel.text  = formatter.stringFromDate(createdAt)
+        }
+        
         if let tags = article.tags {
 
             var leftPosition: CGFloat = 0

@@ -11,6 +11,7 @@ class ArticleTableViewCell: UITableViewCell, BaseArticleTableViewCell {
     @IBOutlet weak var stockCountLabel: UILabel!
     @IBOutlet weak var commentCountLabel: UILabel!
     @IBOutlet weak var commentIcon: UIImageView!
+    @IBOutlet weak var dateLabel: UILabel!
     
     func getHeight(article: ArticleEntity, width: CGFloat) -> CGFloat {
         // そのままだとstoryboard上のサイズになってしまっているので、横幅を設定してlayoutsubviewsを呼ばせることによりcellを正しい形にする。
@@ -28,12 +29,28 @@ class ArticleTableViewCell: UITableViewCell, BaseArticleTableViewCell {
         ]
         let textSize = NSString(string: text).boundingRectWithSize(CGSizeMake(titleLabel.frame.width, 600), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: attributeDict, context: nil)
         
-        return max(textSize.height + 64, 84)
+        return max(textSize.height + 84, 100)
     }
     
     func configure(article: ArticleEntity) {
         // Cellに値を設定する.
         titleLabel.text = article.title
+
+        if let createdAt = article.createdAt {
+            let formatter = NSDateFormatter()
+            formatter.dateFormat = "yy年MM月dd日 H時mm分"
+            dateLabel.text  = formatter.stringFromDate(createdAt)
+            
+            // 記事作成から3時間以内なら文字色変更
+            let calender = NSCalendar(identifier: NSCalendarIdentifierGregorian)!
+            let now = NSDate()
+            let beforeThreeHour = calender.dateByAddingUnit(.CalendarUnitHour, value: -3, toDate: now, options: nil)!
+            if calender.compareDate(createdAt, toDate: beforeThreeHour, toUnitGranularity: .CalendarUnitMinute) == .OrderedDescending {
+                dateLabel.textColor = UIColor(red: 121/255, green: 183/255, blue: 74/255, alpha: 1)
+            } else {
+                dateLabel.textColor = UIColor.grayColor()
+            }
+        }
         
         profileImage.image = ImageLoader.sharedInstance.getPlaceHolder(profileImage.frame.size)
         

@@ -13,6 +13,7 @@ class ArticleTableViewFirstCell: UITableViewCell, BaseArticleTableViewCell {
     @IBOutlet weak var stockCountLabel: UILabel!
     @IBOutlet weak var commentIcon: UIImageView!
     @IBOutlet weak var commentCountLabel: UILabel!
+    @IBOutlet weak var dateLabel: UILabel!
     
     func getHeight(article: ArticleEntity, width: CGFloat) -> CGFloat {
         self.bounds.size.width = width
@@ -40,12 +41,29 @@ class ArticleTableViewFirstCell: UITableViewCell, BaseArticleTableViewCell {
         ]
         let summayTextSize = NSString(string: summary).boundingRectWithSize(CGSizeMake(summaryLabel.frame.width, 600), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: summaryAttributeDict, context: nil)
         
-        return max(textSize.height + summayTextSize.height + 64, 110)
+        return max(textSize.height + summayTextSize.height + 84, 130)
     }
     
     func configure(article: ArticleEntity) {
         // Cellに値を設定する.
         titleLabel.text = article.title
+        
+        if let createdAt = article.createdAt {
+            let formatter = NSDateFormatter()
+            formatter.dateFormat = "yy年MM月dd日 H時mm分"
+            dateLabel.text  = formatter.stringFromDate(createdAt)
+            
+            // 記事作成から3時間以内なら文字色変更
+            let calender = NSCalendar(identifier: NSCalendarIdentifierGregorian)!
+            let now = NSDate()
+            let beforeThreeHour = calender.dateByAddingUnit(.CalendarUnitHour, value: -3, toDate: now, options: nil)!
+            if calender.compareDate(createdAt, toDate: beforeThreeHour, toUnitGranularity: .CalendarUnitMinute) == .OrderedDescending {
+                dateLabel.textColor = UIColor(red: 121/255, green: 183/255, blue: 74/255, alpha: 1)
+            } else {
+                dateLabel.textColor = UIColor.grayColor()
+            }
+        }
+        
         let maxLength = count(article.body)
         summaryLabel.text = article.body.substringToIndex(advance(article.body.startIndex, min(maxLength,100)))
         
