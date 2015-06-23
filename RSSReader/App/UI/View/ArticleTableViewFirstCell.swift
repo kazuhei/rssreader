@@ -29,8 +29,9 @@ class ArticleTableViewFirstCell: UITableViewCell, BaseArticleTableViewCell {
         ]
         let textSize = NSString(string: text).boundingRectWithSize(CGSizeMake(titleLabel.frame.width, 600), options: NSStringDrawingOptions.UsesLineFragmentOrigin, attributes: attributeDict, context: nil)
         
-        // 100文字で切る
-        let summary = article.body.substringToIndex(advance(article.body.startIndex, 100))
+        // 100文字より多い場合は100文字で切る
+        let maxLength = count(article.body)
+        let summary = article.body.substringToIndex(advance(article.body.startIndex, min(maxLength,100)))
         let summaryParagraphStyle = NSMutableParagraphStyle()
         summaryParagraphStyle.lineBreakMode = summaryLabel.lineBreakMode
         let summaryAttributeDict = [
@@ -45,7 +46,8 @@ class ArticleTableViewFirstCell: UITableViewCell, BaseArticleTableViewCell {
     func configure(article: ArticleEntity) {
         // Cellに値を設定する.
         titleLabel.text = article.title
-        summaryLabel.text = article.body.substringToIndex(advance(article.body.startIndex, 100))
+        let maxLength = count(article.body)
+        summaryLabel.text = article.body.substringToIndex(advance(article.body.startIndex, min(maxLength,100)))
         
         profileImage.image = ImageLoader.sharedInstance.getPlaceHolder(profileImage.frame.size)
         
