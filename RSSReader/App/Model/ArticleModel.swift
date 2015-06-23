@@ -76,4 +76,10 @@ class ArticleModel: BaseModel {
         
         return articles
     }
+    
+    func histories() -> [ArticleEntity] {
+        let historyRecords = History.MR_findAllSortedBy("updated_at", ascending: false)
+
+        return historyRecords.map({ history in ArticleEntity(history: history as! History)})
+    }
 }

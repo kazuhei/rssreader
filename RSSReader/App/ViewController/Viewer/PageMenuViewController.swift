@@ -21,7 +21,9 @@ class PageMenuViewController: BaseViewController, CAPSPageMenuDelegate {
         let stockListViewController = stockListStoryboard.instantiateInitialViewController() as! UIViewController
         let tagListStoryboard = UIStoryboard(name: "TagList", bundle: NSBundle(forClass: self.classForCoder))
         let tagListViewController = tagListStoryboard.instantiateInitialViewController() as! UIViewController
-        controllerArray = [articleListViewController, stockListViewController, tagListViewController]
+        let historyListStoryboard = UIStoryboard(name: "HistoryList", bundle: NSBundle(forClass: self.classForCoder))
+        let historyListViewController = historyListStoryboard.instantiateInitialViewController() as! UIViewController
+        controllerArray = [articleListViewController, historyListViewController, stockListViewController, tagListViewController]
         
         let baseColor = UIColor(red: 121/255, green: 183/255, blue: 74/255, alpha: 1)
         let menuParams: [CAPSPageMenuOption] = [

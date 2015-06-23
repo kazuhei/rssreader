@@ -12,4 +12,10 @@ class UserEntity: NSObject {
         self.profileImageUrl = userData["profile_image_url"].string!
         self.userDescription = userData["description"].string ?? ""
     }
+    
+    init (history: History) {
+        self.id = history.userId
+        self.profileImageUrl = history.userProfileImageUrl
+        self.userDescription = ""
+    }
 }

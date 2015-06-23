@@ -3,6 +3,7 @@ import Foundation
 import UIKit
 import RxSwift
 import SVProgressHUD
+import MagicalRecord
 
 class ArticleDetailViewController: BaseViewController, UIWebViewDelegate {
     
@@ -27,12 +28,15 @@ class ArticleDetailViewController: BaseViewController, UIWebViewDelegate {
     
     override func viewDidLoad() {
         contentsView.delegate = self
+        
         SVProgressHUD.show()
         subscriptions.append(ArticleModel.getInstance().getDetail(self.articleId) >- filter { articleArray in articleArray.count == 1 }
             >- subscribe(next:
                 {
                     articles in
-                    self.configureView(articles[0])
+                    let article = articles[0]
+                    self.configureView(article)
+                    self.saveHistor(article)
                 }, error: {
                     error in
                     println(error)
@@ -89,5 +93,26 @@ class ArticleDetailViewController: BaseViewController, UIWebViewDelegate {
         self.headerView.layoutIfNeeded()
         
         self.contentsView.loadHTMLString(article.renderdBody, baseURL: nil)
+    }
+    
+    // 履歴データを保存する
+    private func saveHistor(article: ArticleEntity) {
+        // 記事が登録済の場合はupdated_atだけ更新する
+        if let record = History.MR_findFirstByAttribute("id", withValue: article.id) {
+            record.updated_at = NSDate()
+            record.managedObjectContext?.MR_saveToPersistentStoreAndWait()
+        } else {
+            // 無いときは新規で追加
+            let history: History = History.MR_createEntity()
+            history.id = article.id
+            history.title = article.title
+            if let user = article.user {
+                history.userId = user.id
+                history.userProfileImageUrl = user.profileImageUrl
+            }
+            history.created_at = NSDate()
+            history.updated_at = NSDate()
+            history.managedObjectContext?.MR_saveToPersistentStoreAndWait()
+        }
     }
 }

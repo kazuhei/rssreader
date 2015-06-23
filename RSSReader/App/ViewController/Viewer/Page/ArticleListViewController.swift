@@ -62,11 +62,11 @@ class ArticleListViewController: PageViewController, UITableViewDataSource, UITa
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         // 再利用するCellを取得する.
-        var cellIdentigier = "ArticleCell"
+        var cellIdentifier = "ArticleCell"
         if indexPath.row == 0 {
-            cellIdentigier = "ArticleFirstCell"
+            cellIdentifier = "ArticleFirstCell"
         }
-        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentigier, forIndexPath: indexPath) as! BaseArticleTableViewCell
+        let cell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier, forIndexPath: indexPath) as! BaseArticleTableViewCell
         cell.configure(articles[indexPath.row])
         
         return cell as! UITableViewCell
@@ -74,11 +74,11 @@ class ArticleListViewController: PageViewController, UITableViewDataSource, UITa
     
     func tableView(tableView: UITableView, heightForRowAtIndexPath indexPath: NSIndexPath) -> CGFloat {
         if articles.count != 0  {
-            var cellIdentigier = "ArticleCell"
+            var cellIdentifier = "ArticleCell"
             if indexPath.row == 0 {
-                cellIdentigier = "ArticleFirstCell"
+                cellIdentifier = "ArticleFirstCell"
             }
-            let stabCell = tableView.dequeueReusableCellWithIdentifier(cellIdentigier) as! BaseArticleTableViewCell
+            let stabCell = tableView.dequeueReusableCellWithIdentifier(cellIdentifier) as! BaseArticleTableViewCell
             return stabCell.getHeight(articles[indexPath.row], width: tableView.frame.width)
         }
         return 100

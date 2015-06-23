@@ -2,16 +2,19 @@ import UIKit
 import CoreData
 import MMDrawerController
 import KeychainAccess
+import MagicalRecord
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
 
-
     func application(application: UIApplication, didFinishLaunchingWithOptions launchOptions: [NSObject: AnyObject]?) -> Bool {
+        // MagicalRecordの初期設定
+        MagicalRecord.setupCoreDataStackWithStoreNamed("db.sqlite")
+        // History.MR_truncateAll() // データの初期化をしたい場合はコメントを外す
         
-        // CoreDataからログイン状態を取得する
+        // Keychainからログイン状態を取得する
         let keychain = Keychain(service: "edu.self.rssreader")
         // アクセストークンを保存
         let path = NSBundle.mainBundle().pathForResource("accesstoken", ofType: "txt")!
@@ -71,6 +74,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
         // Saves changes in the application's managed object context before the application terminates.
         self.saveContext()
+        MagicalRecord.cleanUp()
     }
     
     private func toLoginViewController() {

@@ -24,4 +24,14 @@ class ArticleEntity: NSObject {
         self.tags = tagArray
         self.user = UserEntity(userData: articleData["user"])
     }
+    
+    init(history: History) {
+        self.id = history.id
+        self.title = history.title
+        self.body = ""
+        self.renderdBody = ""
+        self.createdAt = ""
+        self.tags = []
+        self.user = UserEntity(history: history)
+    }
 }

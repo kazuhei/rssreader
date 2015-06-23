@@ -10,6 +10,7 @@ target "RSSReader" do
     pod 'MMDrawerController', '~> 0.5.7'
     pod 'KeychainAccess', '1.2.1'
     pod 'Typhoon', '3.1.9'
+    pod 'MagicalRecord'
 end
 
 target "RSSReaderTests" do
@@ -22,4 +23,5 @@ target "RSSReaderTests" do
     pod 'MMDrawerController', '~> 0.5.7'
     pod 'KeychainAccess', '1.2.1'
     pod 'Typhoon', '3.1.9'
+    pod 'MagicalRecord'
 end
