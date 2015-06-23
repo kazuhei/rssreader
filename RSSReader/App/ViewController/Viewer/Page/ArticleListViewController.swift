@@ -8,7 +8,7 @@ class ArticleListViewController: PageViewController, UITableViewDataSource, UITa
     
     var articles: [ArticleEntity] = []
     private var contentOffset : Variable<CGPoint> = Variable(CGPoint())
-    var pageIndex: Int = 1
+    private var pageIndex: Int = 1
     
     @IBOutlet weak var articleTableView: UITableView?
     // navigationBarの設定
@@ -27,19 +27,12 @@ class ArticleListViewController: PageViewController, UITableViewDataSource, UITa
         let nib: UINib = UINib(nibName: "ArticleTableViewCell", bundle: NSBundle(forClass: self.classForCoder))
         self.articleTableView!.registerNib(nib, forCellReuseIdentifier: "ArticleCell")
         
-        // 最上部で更に下に引っ張った時に最新の記事を取得する
-        contentOffset
-            >- filter { $0.y < 0 }
-            >- subscribeNext {
-                _ in
-                if !SVProgressHUD.isVisible() {
-                    self.refresh()
-                }
-            }
-        
         // 最下部に到達した時にさらに30件取得する
         contentOffset
             >- filter {
+                _ in
+                self.articleTableView!.contentSize.height > 0
+            } >- filter {
                 topPosition in
                 topPosition.y + self.articleTableView!.frame.height > self.articleTableView!.contentSize.height
             } >- subscribeNext {
@@ -96,9 +89,18 @@ class ArticleListViewController: PageViewController, UITableViewDataSource, UITa
         contentOffset.next(scrollView.contentOffset)
     }
     
+    func scrollViewDidEndDragging(scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if scrollView.contentOffset.y < -40 {
+            pullToRefresh()
+        }
+    }
+    
     func refresh() {
         SVProgressHUD.show()
-        subscriptions.append(ArticleModel.getInstance().get(1) >- subscribe(next:
+        subscriptions.append(ArticleModel.getInstance().get(1) >- filter {
+            articles in
+            articles.count > 0
+            } >- subscribe(next:
             {
                 articles in
                 self.articles = articles
@@ -111,12 +113,49 @@ class ArticleListViewController: PageViewController, UITableViewDataSource, UITa
                 SVProgressHUD.dismiss()
             }
         ))
+        
+    }
+    
+    func pullToRefresh() {
+        let tableView = articleTableView!
+        // インジケータを表示
+        tableView.userInteractionEnabled = false
+        tableView.bounces = false
+        view.frame = CGRectOffset(view.frame, 0, 40)
+        let indicator = UIActivityIndicatorView(activityIndicatorStyle: .Gray)
+        indicator.center = CGPointMake(tableView.frame.width / 2, -20)
+        self.view.addSubview(indicator)
+        indicator.startAnimating()
+        
+        subscriptions.append(ArticleModel.getInstance().get(1) >- filter {
+            articles in
+            articles.count > 0
+        } >- subscribe(next:
+            {
+                articles in
+                self.articles = articles
+                self.articleTableView?.reloadData()
+            }, error: {
+                _ in
+
+            }, completed: {
+                // インジケータを非表示
+                indicator.stopAnimating()
+                indicator.removeFromSuperview()
+                tableView.userInteractionEnabled = true
+                tableView.bounces = true
+                self.view.frame = CGRectOffset(self.view.frame, 0, -40)
+            }
+        ))
     }
     
     func fetchArticles() {
         pageIndex++
         SVProgressHUD.show()
-        subscriptions.append(ArticleModel.getInstance().get(pageIndex) >- subscribe(next:
+        subscriptions.append(ArticleModel.getInstance().get(pageIndex) >- filter {
+                articles in
+                articles.count > 0
+            } >- subscribe(next:
             {
                 articles in
                 self.articles += articles
