@@ -11,11 +11,6 @@ class ArticleListViewController: PageViewController, UITableViewDataSource, UITa
     private var pageIndex: Int = 1
     
     @IBOutlet weak var articleTableView: UITableView?
-    // navigationBarの設定
-    override func navigationRightBarButtons() -> [UIBarButtonItem] {
-        let refreshButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: "refresh")
-        return [refreshButton]
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -43,9 +38,11 @@ class ArticleListViewController: PageViewController, UITableViewDataSource, UITa
         }
     }
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
         
+        let refreshButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: "refresh")
+        getContext().navigationController?.visibleViewController.navigationItem.setRightBarButtonItem(refreshButton, animated: false)
         refresh()
     }
     
@@ -82,7 +79,7 @@ class ArticleListViewController: PageViewController, UITableViewDataSource, UITa
         let articleDetailStoryboard = UIStoryboard(name: "ArticleDetail", bundle: nil)
         let articleDetailViewController = articleDetailStoryboard.instantiateInitialViewController() as! ArticleDetailViewController
         articleDetailViewController.articleId = articles[indexPath.row].id
-        self.pushViewController = articleDetailViewController
+        getContext().navigationController?.pushViewController(articleDetailViewController, animated: true)
     }
     
     func scrollViewDidScroll(scrollView: UIScrollView) {

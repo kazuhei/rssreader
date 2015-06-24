@@ -16,6 +16,7 @@ class UserModel: BaseModel {
         client.call(QiitaApiClient.UserRequest(id: id), callback: {
             data in
             user.next([data])
+            user.on(Event.Completed)
         }, errorCallback: {(error) in
             user.on(Event.Error(error))
         })

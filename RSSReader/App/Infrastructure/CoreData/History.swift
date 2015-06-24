@@ -11,3 +11,4 @@ class History: NSManagedObject {
     @NSManaged var userProfileImageUrl: String
 
 }
+    

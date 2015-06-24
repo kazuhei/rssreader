@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="PH4-UU-mfI">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="7702" systemVersion="14D136" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="H4J-nW-gMs">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="7701"/>
     </dependencies>
@@ -26,7 +26,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FAP-xp-05v">
-                                <rect key="frame" x="240" y="360" width="120" height="41"/>
+                                <rect key="frame" x="240" y="340" width="120" height="41"/>
                                 <constraints>
                                     <constraint firstAttribute="width" constant="120" id="eH2-LT-Ag6"/>
                                 </constraints>
@@ -38,17 +38,57 @@
                                     <action selector="toAuthPage:" destination="PH4-UU-mfI" eventType="touchUpInside" id="UiV-Ku-p3Y"/>
                                 </connections>
                             </button>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1j6-Bc-uFa">
+                                <rect key="frame" x="240" y="402" width="120" height="36"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="120" id="vVV-D4-dht"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="20"/>
+                                <state key="normal" title="簡易ログイン">
+                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
+                                </state>
+                                <connections>
+                                    <action selector="dummyLogin:" destination="PH4-UU-mfI" eventType="touchUpInside" id="gea-CQ-Ser"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <constraints>
-                            <constraint firstAttribute="centerY" secondItem="FAP-xp-05v" secondAttribute="centerY" constant="-80" id="P1S-jc-VPv"/>
+                            <constraint firstAttribute="centerY" secondItem="1j6-Bc-uFa" secondAttribute="centerY" constant="-120" id="1km-ce-hsC"/>
+                            <constraint firstAttribute="centerX" secondItem="1j6-Bc-uFa" secondAttribute="centerX" id="F1i-HC-91w"/>
+                            <constraint firstAttribute="centerY" secondItem="FAP-xp-05v" secondAttribute="centerY" constant="-60" id="P1S-jc-VPv"/>
                             <constraint firstAttribute="centerX" secondItem="FAP-xp-05v" secondAttribute="centerX" id="dSg-a8-u3e"/>
                             <constraint firstAttribute="centerX" secondItem="AqD-qS-OA2" secondAttribute="centerX" id="m6Q-0G-wr2"/>
                             <constraint firstAttribute="centerY" secondItem="AqD-qS-OA2" secondAttribute="centerY" constant="80" id="py8-5H-w36"/>
                         </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="jPu-DK-98T">
+                        <barButtonItem key="rightBarButtonItem" systemItem="stop" id="bLn-B0-L6j">
+                            <connections>
+                                <action selector="toPreviousPage:" destination="PH4-UU-mfI" id="8MI-hM-VvA"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="5a9-iK-DSD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1222" y="584"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="tNO-sv-3KD">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="H4J-nW-gMs" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="WFP-xp-urb">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="PH4-UU-mfI" kind="relationship" relationship="rootViewController" id="PUU-t1-AA6"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oq5-gv-OfO" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="410" y="584"/>
         </scene>

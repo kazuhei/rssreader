@@ -4,16 +4,11 @@ import UIKit
 import RxSwift
 import SVProgressHUD
 
-class StockListViewController: PageViewController, UITableViewDataSource, UITableViewDelegate {
+class StockListViewController: PageViewController, UITableViewDataSource, UITableViewDelegate, UIAlertViewDelegate {
     
     var articles: [ArticleEntity] = []
     
     @IBOutlet weak var stockTableView: UITableView?
-    
-    override func navigationRightBarButtons() -> [UIBarButtonItem] {
-        let refreshButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: "refresh")
-        return [refreshButton]
-    }
     
     override func viewDidLoad() {
         stockTableView!.delegate = self
@@ -22,10 +17,33 @@ class StockListViewController: PageViewController, UITableViewDataSource, UITabl
         self.stockTableView!.registerNib(nib, forCellReuseIdentifier: "ArticleCell")
     }
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
-     
-        refresh()
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        
+        if let user = getContext().user {
+            let refreshButton: UIBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.Refresh, target: self, action: "refresh")
+            getContext().navigationController?.visibleViewController.navigationItem.setRightBarButtonItem(refreshButton, animated: false)
+            refresh()
+        } else {
+            // UIAlertControllerを作成する.
+            let loginAlert: UIAlertController = UIAlertController(title: "ログインしてください", message: "ストック一覧を見るには\nログインが必要です。", preferredStyle: .Alert)
+            
+            // ログインのアクションを作成する.
+            let loginAction = UIAlertAction(title: "する", style: .Default) { action in
+                
+                let loginStoryBoard = UIStoryboard(name: "Login", bundle: nil)
+                let loginViewController = loginStoryBoard.instantiateInitialViewController() as! UIViewController
+                self.getContext().navigationController?.visibleViewController.presentViewController(loginViewController, animated: true, completion: nil)
+            }
+            loginAlert.addAction(loginAction)
+            
+            let cancelAction = UIAlertAction(title: "しない", style: .Default, handler: nil)
+            loginAlert.addAction(cancelAction)
+            
+            // UIAlertを発動する.
+            self.getContext().navigationController?.visibleViewController.presentViewController(loginAlert, animated: true, completion: nil)
+        }
+        
     }
     
     func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -53,7 +71,7 @@ class StockListViewController: PageViewController, UITableViewDataSource, UITabl
         let articleDetailStoryboard = UIStoryboard(name: "ArticleDetail", bundle: nil)
         let articleDetailViewController = articleDetailStoryboard.instantiateInitialViewController() as! ArticleDetailViewController
         articleDetailViewController.articleId = articles[indexPath.row].id
-        self.pushViewController = articleDetailViewController
+        getContext().navigationController?.pushViewController(articleDetailViewController, animated: true)
     }
     
     func refresh() {

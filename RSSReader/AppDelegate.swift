@@ -3,6 +3,7 @@ import CoreData
 import MMDrawerController
 import KeychainAccess
 import MagicalRecord
+import RxSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -14,22 +15,31 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         MagicalRecord.setupCoreDataStackWithStoreNamed("db.sqlite")
         // History.MR_truncateAll() // データの初期化をしたい場合はコメントを外す
         
-        // Keychainからログイン状態を取得する
-        let keychain = Keychain(service: "edu.self.rssreader")
+        // contextの作成
+        let context = Context.sharedInstance
+        let userId = "kazuhei0108"
+        // disposeするタイミングが不明
+        let userSubscription = UserModel.getInstance().get(userId) >- filter { userArray in userArray.count == 1 }
+            >- subscribe(next: {
+                    user in
+                    // context.user = user[0]
+                }, error: {
+                    error in
+                    // エラー処理
+                }, completed: {
+
+                }
+        )
+        
+        
         // アクセストークンを保存
         let path = NSBundle.mainBundle().pathForResource("accesstoken", ofType: "txt")!
         let localAccessToken = String(contentsOfFile: path, encoding: NSUTF8StringEncoding, error: nil)!
-        keychain.set(localAccessToken, key: "qiitaAccessToken")
-        // アクセストークンを削除
-        // keychain.remove("qiitaAccessToken")
-        if let accessToken = keychain.get("qiitaAccessToken") {
-            println(accessToken)
-            println("ログイン済です")
-            startAppToFirstController()
-        } else {
-            println("ログインできていません")
-            toLoginViewController()
-        }
+        context.accesstoken = localAccessToken
+//        let keychain = Keychain(service: "edu.self.rssreader") // アクセストークンをリセット
+//        keychain.remove("qiitaAccessToken")
+
+        startAppToFirstController()
         
         return true
     }
@@ -41,11 +51,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let urlComponents = NSURLComponents(URL: url, resolvingAgainstBaseURL: false)!
         let queryDict = urlComponentsToDict(urlComponents)
         
+        let context = Context.sharedInstance
         // 付与されたcodeを付けてpostしqiitaからaccesstokenを得り保存してリスタート
         AuthModel.getInstance().getAccessToken(queryDict["code"]!){
             authEntity in
-            let keychain = Keychain(service: "edu.self.rssreader")
-            keychain.set(authEntity.token, key: "qiitaAccessToken")
+            context.accesstoken = authEntity.token
+
             self.startAppToFirstController()
         }
         
@@ -77,21 +88,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         MagicalRecord.cleanUp()
     }
     
-    private func toLoginViewController() {
-        let loginStoryBoard = UIStoryboard(name: "Login", bundle: nil)
-        let loginViewController = loginStoryBoard.instantiateInitialViewController() as! UIViewController
-        
-        window!.rootViewController = loginViewController
-        window!.makeKeyAndVisible()
-    }
-    
     private func startAppToFirstController() {
         let pageMenuStoryBoard = UIStoryboard(name: "PageMenu", bundle: nil)
-        let pageMenuViewController = pageMenuStoryBoard.instantiateInitialViewController() as! UIViewController
+        let pageMenuNavigationViewController = pageMenuStoryBoard.instantiateInitialViewController() as! UINavigationController
+        Context.sharedInstance.navigationController = pageMenuNavigationViewController
         let sideMenuStoryBoard = UIStoryboard(name: "SideMenu", bundle: nil)
         let sideMenuViewController = sideMenuStoryBoard.instantiateInitialViewController() as! UIViewController
         
-        let drawerController = MMDrawerController(centerViewController: pageMenuViewController, leftDrawerViewController: sideMenuViewController)
+        let drawerController = MMDrawerController(centerViewController: pageMenuNavigationViewController, leftDrawerViewController: sideMenuViewController)
         drawerController.openDrawerGestureModeMask = .Custom
         drawerController.closeDrawerGestureModeMask = .TapCenterView | .TapNavigationBar
         
