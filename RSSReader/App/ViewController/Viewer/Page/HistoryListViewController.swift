@@ -15,8 +15,9 @@ class HistoryListViewController: PageViewController {
         articleTableView.dataSource = self
     }
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        getContext().navigationController?.visibleViewController.navigationItem.setRightBarButtonItems(nil, animated: false)
         articles = ArticleModel.getInstance().histories()
         articleTableView.reloadData()
     }
@@ -50,7 +51,7 @@ extension HistoryListViewController: UITableViewDelegate, UITableViewDataSource 
         let articleDetailStoryboard = UIStoryboard(name: "ArticleDetail", bundle: nil)
         let articleDetailViewController = articleDetailStoryboard.instantiateInitialViewController() as! ArticleDetailViewController
         articleDetailViewController.articleId = articles[indexPath.row].id
-        self.pushViewController = articleDetailViewController
+        getContext().navigationController?.pushViewController(articleDetailViewController, animated: true)
     }
     
 }

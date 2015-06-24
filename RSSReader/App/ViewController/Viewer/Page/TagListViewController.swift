@@ -58,8 +58,9 @@ class TagListViewController: PageViewController, UITableViewDelegate, UITableVie
         tagListView.dataSource = self
     }
     
-    override func viewWillAppear(animated: Bool) {
-        super.viewWillAppear(animated)
+    override func viewDidAppear(animated: Bool) {
+        super.viewDidAppear(animated)
+        getContext().navigationController?.visibleViewController.navigationItem.setRightBarButtonItems(nil, animated: false)
         SVProgressHUD.show()
         subscriptions.append(TagModel.getInstance().get(100) >- subscribe(next:
             {
@@ -107,7 +108,7 @@ class TagListViewController: PageViewController, UITableViewDelegate, UITableVie
         let articleSearchStoryboard = UIStoryboard(name: "ArticleSearch", bundle: nil)
         let articleSearchViewController = articleSearchStoryboard.instantiateInitialViewController() as! ArticleSearchViewController
         articleSearchViewController.keyword = tags[indexPath.row].id
-        self.pushViewController = articleSearchViewController
+        getContext().navigationController?.pushViewController(articleSearchViewController, animated: true)
     }
     
 }

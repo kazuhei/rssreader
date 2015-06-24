@@ -45,46 +45,8 @@ class PageMenuViewController: BaseViewController, CAPSPageMenuDelegate {
     @IBAction func onTouchDrawerButton(sender: UIBarButtonItem) {
         navigationController?.mm_drawerController.openDrawerSide(.Left, animated: true, completion: nil)
     }
-    override func viewWillAppear(animated: Bool) {
-        setNavigationRightBarButtons()
-        addObservePushVCFromChildVC()
-    }
-    
-    override func viewWillDisappear(animated: Bool) {
-        removeObservePushVCFromChildVC()
-    }
-    
-    func didMoveToPage(controller: UIViewController, index: Int) {
-        
-    }
     
     func willMoveToPage(controller: UIViewController, index: Int) {
-        removeObservePushVCFromChildVC()
         currentIndex = index
-        addObservePushVCFromChildVC()
-        setNavigationRightBarButtons()
-    }
-    
-    // 子VCの投げてくるpushViewControllerを拾って遷移する
-    override func observeValueForKeyPath(keyPath: String, ofObject object: AnyObject, change: [NSObject : AnyObject], context: UnsafeMutablePointer<Void>) {
-        if object as! PageViewController == controllerArray[currentIndex] && keyPath == "pushViewController" {
-            let pageViewController = controllerArray[currentIndex] as! PageViewController
-            self.navigationController?.pushViewController(pageViewController.pushViewController!, animated: true)
-        }
-    }
-    
-    private func setNavigationRightBarButtons() {
-        let currentVC = controllerArray[currentIndex] as! PageViewController
-        self.navigationItem.setRightBarButtonItems(currentVC.navigationRightBarButtons(), animated: false)
-    }
-    
-    private func addObservePushVCFromChildVC() {
-        let currentVC = controllerArray[currentIndex] as! PageViewController
-        currentVC.addObserver(self, forKeyPath: "pushViewController", options: .New, context: nil)
-    }
-    
-    private func removeObservePushVCFromChildVC() {
-        let currentVC = controllerArray[currentIndex] as! PageViewController
-        currentVC.removeObserver(self, forKeyPath: "pushViewController")
     }
 }
